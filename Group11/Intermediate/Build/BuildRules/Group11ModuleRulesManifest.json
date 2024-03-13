@@ -1,8 +1,8 @@
 {
 	"SourceFiles": [
-		"D:\\Spillskolen\\2024V Programming 2\\dev\\Unreal\\BarBoi\\Group11\\Source\\Group11\\Group11.Build.cs",
-		"D:\\Spillskolen\\2024V Programming 2\\dev\\Unreal\\BarBoi\\Group11\\Source\\Group11.Target.cs",
-		"D:\\Spillskolen\\2024V Programming 2\\dev\\Unreal\\BarBoi\\Group11\\Source\\Group11Editor.Target.cs"
+		"C:\\Users\\erike\\Documents\\GitHub\\BarBoi\\Group11\\Source\\Group11\\Group11.Build.cs",
+		"C:\\Users\\erike\\Documents\\GitHub\\BarBoi\\Group11\\Source\\Group11.Target.cs",
+		"C:\\Users\\erike\\Documents\\GitHub\\BarBoi\\Group11\\Source\\Group11Editor.Target.cs"
 	],
 	"EngineVersion": "5.3.2"
 }

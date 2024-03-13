@@ -6,7 +6,7 @@
 /NAME:"UnrealEditor-Group11.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"D:\Spillskolen\2024V Programming 2\dev\Unreal\BarBoi\Group11\Intermediate\Build\Win64\x64\Group11Editor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
-"D:\Spillskolen\2024V Programming 2\dev\Unreal\BarBoi\Group11\Intermediate\Build\Win64\x64\UnrealEditor\Development\Group11\Group11.cpp.obj"
-"D:\Spillskolen\2024V Programming 2\dev\Unreal\BarBoi\Group11\Intermediate\Build\Win64\x64\UnrealEditor\Development\Group11\Default.rc2.res"
-/OUT:"D:\Spillskolen\2024V Programming 2\dev\Unreal\BarBoi\Group11\Intermediate\Build\Win64\x64\UnrealEditor\Development\Group11\UnrealEditor-Group11.lib"
+"C:\Users\erike\Documents\GitHub\BarBoi\Group11\Intermediate\Build\Win64\x64\Group11Editor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
+"C:\Users\erike\Documents\GitHub\BarBoi\Group11\Intermediate\Build\Win64\x64\UnrealEditor\Development\Group11\Group11.cpp.obj"
+"C:\Users\erike\Documents\GitHub\BarBoi\Group11\Intermediate\Build\Win64\x64\UnrealEditor\Development\Group11\Default.rc2.res"
+/OUT:"C:\Users\erike\Documents\GitHub\BarBoi\Group11\Intermediate\Build\Win64\x64\UnrealEditor\Development\Group11\UnrealEditor-Group11.lib"
