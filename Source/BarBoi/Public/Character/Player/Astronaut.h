@@ -13,6 +13,7 @@ class UInputAction;
 class UInputMappingContext;
 struct FInputActionValue;
 
+
 UCLASS()
 class BARBOI_API AAstronaut : public ACharacter
 {
@@ -37,8 +38,8 @@ public:
 
 
 	/*IMC for astronaut*/
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
-	//UInputMappingContext* AstronautMapppingContext;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
+	UInputMappingContext* AstronautMapppingContext;
 
 	//Input Actions
 
@@ -47,8 +48,8 @@ public:
 	//UInputAction* ActionAction;
 
 public:
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
-	//UInputAction* LookAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* ActionLook;
 
 public:
 	// Sets default values for this character's properties
@@ -57,6 +58,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	/** Called for looking input */
+	void Look(const FInputActionValue& Value);
 
 public:	
 	// Called every frame
