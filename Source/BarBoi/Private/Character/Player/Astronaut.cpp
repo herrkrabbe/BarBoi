@@ -31,7 +31,7 @@ AAstronaut::AAstronaut()
 	AstronautCamera->bUsePawnControlRotation = true;
 
 	//Hide Astronaut Mesh Component
-	//GetMesh()->SetOwnerNoSee(true);
+	GetMesh()->SetOwnerNoSee(true);
 
 	//Create Gun Mesh
 	//AstronautWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("AstronautWeapon"));
