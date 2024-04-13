@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "Components/MeshComponent.h"
-#include <Character/Player/Astronaut.h>
+#include "Character/Player/Astronaut.h"
+#include "Character/Player/Weapon/Laser.h"
 #include "Weapon.generated.h"
 
-
+class AAstronaut;
+class ALaser;
 /**
  * 
  */
@@ -17,6 +19,10 @@ class BARBOI_API UWeapon : public UMeshComponent
 	GENERATED_BODY()
 	
 public:
+	/* Projectile class to spawn */
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+	TSubclassOf<class ALaser> ProjectileClass;
+
 	/* Default Constructor for weapon. If you use this constructor you must then SetupInput*/
 	UWeapon();
 
@@ -26,9 +32,7 @@ public:
 	/* Function called to tick weapon*/
 	void TickWeapon(float deltaTime);
 
-	/* Projectile class to spawn */
-	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	TSubclassOf<class ALaser> ProjectileClass;
+	
 
 	/* Input Mapping Context used for the weapon */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
