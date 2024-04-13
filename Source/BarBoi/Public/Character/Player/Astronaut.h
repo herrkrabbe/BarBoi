@@ -8,6 +8,7 @@
 
 class UInputComponent;
 class USkeletalMeshComponent;
+class UWeapon;
 class UCameraComponent;
 class UInputAction;
 class UInputMappingContext;
@@ -29,8 +30,8 @@ public:
 	//Note that Character already includes a SkeletalMeshComponent: Mesh
 
 	/* Weapon for astronaut */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh")
-	USkeletalMeshComponent* AstronautWeapon;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon")
+	UWeapon* AstronautWeapon;
 
 	/* Camera for astronaut */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Camera", meta = (AllowPrivateAccess = "true"))
