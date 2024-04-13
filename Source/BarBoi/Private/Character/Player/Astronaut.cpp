@@ -8,6 +8,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include <Character/Player/Weapon/Weapon.h>
 
 
 
@@ -34,10 +35,11 @@ AAstronaut::AAstronaut()
 	GetMesh()->SetOwnerNoSee(true);
 
 	//Create Gun Mesh
-	//AstronautWeapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("AstronautWeapon"));
-	//AstronautWeapon->SetupAttachment(GetMesh());
-	//AstronautWeapon->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
-	//AstronautWeapon->SetOwnerNoSee(false);
+	AstronautWeapon = CreateDefaultSubobject<UWeapon>(TEXT("AstronautWeapon"));
+	
+	AstronautWeapon->SetupAttachment(GetMesh());
+	AstronautWeapon->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
+	AstronautWeapon->SetOwnerNoSee(false);
 
 }
 
@@ -85,6 +87,8 @@ void AAstronaut::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	{
 		// Looking
 		EnhancedInputComponent->BindAction(ActionLook, ETriggerEvent::Triggered, this, &AAstronaut::Look);
+
+		AstronautWeapon->SetupInput(this);
 	}
 	else
 	{
