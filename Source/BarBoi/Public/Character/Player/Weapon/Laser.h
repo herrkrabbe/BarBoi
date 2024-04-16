@@ -41,4 +41,5 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Mesh")
 	UMeshComponent* LaserMesh;
 
+
 };

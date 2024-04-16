@@ -32,7 +32,8 @@ ALaser::ALaser()
 	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->ProjectileGravityScale = 0.f; // disabling gravity
 	
-	
+	//disable collision of mesh
+	//LaserMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 }
 
