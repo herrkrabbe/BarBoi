@@ -75,6 +75,9 @@ void AAstronaut::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	//Tick Weapon
+	AstronautWeapon->TickWeapon(DeltaTime);
+
 }
 
 // Called to bind functionality to input
