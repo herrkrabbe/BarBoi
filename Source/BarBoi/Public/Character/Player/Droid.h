@@ -55,6 +55,9 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* ActionMove;
 
+	UPROPERTY(VisibleDefaultsOnly, Category = "Mesh")
+	USkeletalMeshComponent* DroidMesh;
+
 
 protected:
 	
@@ -65,4 +68,9 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
+public:
+	/** Returns CameraBoom subobject **/
+	FORCEINLINE class USpringArmComponent* GetSpringArm() const { return SpringArmComponent; }
+	/** Returns FollowCamera subobject **/
+	FORCEINLINE class UCameraComponent* GetCamera() const { return ThirdPersonCameraComponent; }
 };
