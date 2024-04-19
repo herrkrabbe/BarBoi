@@ -22,16 +22,20 @@ ADroid::ADroid()
 	// configure droid movement
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
-	//GetCharacterMovement()->SetMovementMode(MOVE_Flying); //Enable the doird to fly
-	//GetCharacterMovement()->AirControl = 1.f;
+	
 
 	GetCharacterMovement()->JumpZVelocity = 700.f;
 	GetCharacterMovement()->AirControl = 1.f;
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
-	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
-	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
-	//GetCharacterMovement()->GravityScale = 0.f;
+
+	GetCharacterMovement()->MaxFlySpeed = 200.f;
+	GetCharacterMovement()->BrakingDecelerationFlying = 15000.0f;
+
+	//GRAVITY IS DISABLED AND FLYING ENABLED IN BeginPlay()
+	
+
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, GetCharacterMovement()->GetMovementName());
 
  	// create springarm 
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
@@ -54,6 +58,10 @@ void ADroid::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//enable flying
+	//GetCharacterMovement()->GravityScale = 0.f;
+	GetCharacterMovement()->SetMovementMode(MOVE_Flying); //Enable the doird to fly
+	GetCharacterMovement()->AirControl = 1.f;
 	
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller)) {
 	//if (APlayerController* PlayerController = Cast<APlayerController>(GetWorld()->GetFirstPlayerController())) {
@@ -99,27 +107,48 @@ void ADroid::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void ADroid::Move(const FInputActionValue& Value)
 {
-	FVector2D MovementVector = Value.Get<FVector2D>();
+	FVector MovementVector = Value.Get<FVector>();
+
 
 	if (Controller != nullptr)
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, MovementVector.ToString());
 
 		// find out which way is forward
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FRotator YawRotation(0, Rotation.Yaw, 0);
-		//const FRotator PitchRotation(Rotation.Pitch, 0, 0);
+		
 
 		// get forward vector
 		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		
+		FString ForwardString = "Forward: ";
+		ForwardString.Append(ForwardDirection.ToString());
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ForwardString);
 
 		// get right vector 
 		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-		//const FVector UpDirection = FRotationMatrix(PitchRotation).GetUnitAxis(EAxis::Z);
+		FString RightString = "Right: ";
+		RightString.Append(RightDirection.ToString());
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, RightString);
 
+
+
+		//const FRotator PitchRotation(Rotation.Pitch, 0, Rotation.Pitch);
+		//const FVector UpDirection = FRotationMatrix(PitchRotation).GetUnitAxis(EAxis::Z);
+		const FVector UpDirection = FVector(0, 0, 1);
+
+		FString UpString = "Up: ";
+		UpString.Append(UpDirection.ToString());
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, UpString);
+
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, GetCharacterMovement()->GetMovementName());
+
+		AddMovementInput(UpDirection, MovementVector.Z);
 		AddMovementInput(ForwardDirection, MovementVector.Y);
 		AddMovementInput(RightDirection, MovementVector.X);
-		//AddMovementInput(UpDirection, MovementVector.Z);
+		
 		
 
 		// add movement 
