@@ -28,38 +28,38 @@ void UWeapon::TickWeapon(float deltaTime)
 void UWeapon::Fire()
 {
 	
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Start Fire%f")));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Start Fire%f")));
 
 
 	// This block is taken from FPS template
 	if (Character == nullptr || Character->GetController() == nullptr)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No Character%f")));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No Character%f")));
 		return;
 	}
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has Character Character%f")));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has Character Character%f")));
 
 	// weapon cannot fire while overheated or has recently fired
 	if (FireCooldown != 0 || bIsOverheated) {
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, Overheated%f")));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, Overheated%f")));
 		return;
 	}
 	// Try and fire a projectile. This block is taken from FPS template
 	if (ProjectileClass != nullptr)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has ProjectileClass%f")));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has ProjectileClass%f")));
 		UWorld* const World = GetWorld();
 		if (World != nullptr)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has World%f")));
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has World%f")));
 			APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
 			if (PlayerController == nullptr) {
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No PlayerController%f")));
+				//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No PlayerController%f")));
 				return;
 			}
 			else {
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has PlayerController%f")));
+				//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has PlayerController%f")));
 			}
 			const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
@@ -68,8 +68,8 @@ void UWeapon::Fire()
 			FString rotationString = SpawnRotation.ToString();
 			FString locationString = SpawnLocation.ToString();
 
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, rotationString);
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, locationString);
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, rotationString);
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, locationString);
 
 			//Set Spawn Collision Handling Override
 			FActorSpawnParameters ActorSpawnParams;
@@ -84,14 +84,14 @@ void UWeapon::Fire()
 			AddHeat(HeatPerShot);
 		}
 		else {
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No World%f")));
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No World%f")));
 		}
 	}
 	else {
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No Projectile Class%f")));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No Projectile Class%f")));
 	}
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fire End%f")));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fire End%f")));
 }
 
 void UWeapon::Repair()
@@ -149,7 +149,7 @@ void UWeapon::FireCooldownTick(float deltaTime)
 	FireCooldown -= deltaTime;
 
 	FString cooldownString = FString::Printf(TEXT("Cooldown: %f"), FireCooldown);
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, cooldownString);
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, cooldownString);
 
 	if (FireCooldown < 0) {
 		FireCooldown = 0;
