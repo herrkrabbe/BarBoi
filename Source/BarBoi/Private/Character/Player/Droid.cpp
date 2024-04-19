@@ -22,20 +22,12 @@ ADroid::ADroid()
 	// configure droid movement
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
-	
-
-	GetCharacterMovement()->JumpZVelocity = 700.f;
 	GetCharacterMovement()->AirControl = 1.f;
-	GetCharacterMovement()->MaxWalkSpeed = 500.f;
-	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
-
-	GetCharacterMovement()->MaxFlySpeed = 200.f;
-	GetCharacterMovement()->BrakingDecelerationFlying = 15000.0f;
+	GetCharacterMovement()->MaxFlySpeed = SpeedMax;
+	GetCharacterMovement()->BrakingDecelerationFlying = SpeedDeceleration;
 
 	//GRAVITY IS DISABLED AND FLYING ENABLED IN BeginPlay()
 	
-
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, GetCharacterMovement()->GetMovementName());
 
  	// create springarm 
 	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
