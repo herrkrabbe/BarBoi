@@ -71,6 +71,12 @@ void UWeapon::Fire()
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, rotationString);
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, locationString);
 
+			FString rotationString = SpawnRotation.ToString();
+			FString locationString = SpawnLocation.ToString();
+
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, rotationString);
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, locationString);
+
 			//Set Spawn Collision Handling Override
 			FActorSpawnParameters ActorSpawnParams;
 			//ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;

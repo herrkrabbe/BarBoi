@@ -10,28 +10,35 @@ ALaser::ALaser()
 	//enabling ticking for lifespan
 	Super::SetLifeSpan(5.f);
 
- 	// initialise capsule component used for collision detection
-	CollisionComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CollisionComp"));
-	CollisionComp->InitCapsuleSize(1.f, 4.f);
+ 	// initialise Box component used for collision detection
+	CollisionComp = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisionComp"));
+	CollisionComp->SetBoxExtent(FVector(20.f, 5.f, 5.f));
 
-	//Rotating capsule to be horizontal
-	CollisionComp->AddLocalRotation(FRotator(90.f, 0.f, 0.f));
+	//Rotating Box to be horizontal
+	//CollisionComp->AddLocalRotation(FRotator(90.f, 0.f, 0.f));
 
 	//Adding hit event
 	CollisionComp->SetCollisionProfileName("Laser");
 	CollisionComp->OnComponentHit.AddDynamic(this, &ALaser::OnHit);
 
-	//setting capsule as root component
+	//setting Box as root component
 	RootComponent = CollisionComp;
 
+
+	//Creating ProjectileMovement Component
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
 	ProjectileMovement->UpdatedComponent = CollisionComp;
-	ProjectileMovement->InitialSpeed = 3000.f;
-	ProjectileMovement->MaxSpeed = 3000.f;
+	ProjectileMovement->InitialSpeed = speedInitial;
+	ProjectileMovement->MaxSpeed = speedMax;
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->ProjectileGravityScale = 0.f; // disabling gravity
 	
+	//LaserMesh->SetupAttachment(CollisionComp);
+	
+	
+
+
 	//disable collision of mesh
 	//LaserMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
