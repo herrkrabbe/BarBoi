@@ -27,6 +27,7 @@ ADroid::ADroid()
 	GetCharacterMovement()->BrakingDecelerationFlying = SpeedDeceleration;
 
 	//GRAVITY IS DISABLED AND FLYING ENABLED IN BeginPlay()
+	GetCharacterMovement()->GravityScale = 0.f;
 	
 
  	// create springarm 
@@ -55,15 +56,15 @@ void ADroid::BeginPlay()
 	GetCharacterMovement()->SetMovementMode(MOVE_Flying); //Enable the doird to fly
 	GetCharacterMovement()->AirControl = 1.f;
 	
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller)) {
-	//if (APlayerController* PlayerController = Cast<APlayerController>(GetWorld()->GetFirstPlayerController())) {
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Droid can access controller")));
+	//if (APlayerController* PlayerController = Cast<APlayerController>(Controller)) {
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetWorld()->GetFirstPlayerController())) {
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Droid can access controller")));
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer())) {
 			Subsystem->AddMappingContext(DroidMappingContext, 1);
 		}
 	}
 	else {
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Droid can NOT access controller")));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Droid can NOT access controller")));
 	}
 	
 }
@@ -91,7 +92,7 @@ void ADroid::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	}
 	else
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("INPUT SETUP FAILED")));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("INPUT SETUP FAILED")));
 		//insert error here
 	}
 
@@ -104,7 +105,8 @@ void ADroid::Move(const FInputActionValue& Value)
 
 	if (Controller != nullptr)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, MovementVector.ToString());
+		GetCharacterMovement()->SetMovementMode(MOVE_Flying);
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, MovementVector.ToString());
 
 		// find out which way is forward
 		const FRotator Rotation = Controller->GetControlRotation();
@@ -116,14 +118,14 @@ void ADroid::Move(const FInputActionValue& Value)
 		
 		FString ForwardString = "Forward: ";
 		ForwardString.Append(ForwardDirection.ToString());
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ForwardString);
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ForwardString);
 
 		// get right vector 
 		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
 		FString RightString = "Right: ";
 		RightString.Append(RightDirection.ToString());
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, RightString);
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, RightString);
 
 
 
@@ -133,9 +135,9 @@ void ADroid::Move(const FInputActionValue& Value)
 
 		FString UpString = "Up: ";
 		UpString.Append(UpDirection.ToString());
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, UpString);
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, UpString);
 
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, GetCharacterMovement()->GetMovementName());
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, GetCharacterMovement()->GetMovementName());
 
 		AddMovementInput(UpDirection, MovementVector.Z);
 		AddMovementInput(ForwardDirection, MovementVector.Y);
@@ -163,7 +165,7 @@ void ADroid::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 	else {
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("CANNOT LOOK")));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("CANNOT LOOK")));
 	}
 }
 
