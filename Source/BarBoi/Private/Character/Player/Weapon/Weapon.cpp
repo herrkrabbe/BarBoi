@@ -109,6 +109,11 @@ float UWeapon::GetHeat()
 	return Heat;
 }
 
+float UWeapon::GetHeatMax()
+{
+	return HeatCapacity;
+}
+
 float UWeapon::Cooling(float deltaTime)
 {
 	//calculating heat removed

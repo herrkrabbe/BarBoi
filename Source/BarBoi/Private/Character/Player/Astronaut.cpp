@@ -9,6 +9,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include <Character/Player/Weapon/Weapon.h>
+#include <Character/Player/Droid.h>
 
 
 
@@ -85,7 +86,7 @@ void AAstronaut::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	Damage(DeltaTime);
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Oxygen: %f"), GetOxygen()));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Oxygen: %f"), GetOxygen()));
 
 	//Tick Weapon
 	AstronautWeapon->TickWeapon(DeltaTime);
@@ -136,5 +137,55 @@ bool AAstronaut::Damage(float damageDone)
 	return true;
 }
 
+float AAstronaut::GetAmmo()
+{
+	return AstronautWeapon->GetHeat();
+}
 
+float AAstronaut::GetAmmoMax()
+{
+	return AstronautWeapon->GetHeatMax();
+}
 
+TScriptInterface<ISwitch> AAstronaut::GetDroid_Implementation()
+{
+
+	
+	ADroid* droid = Cast<ADroid>(Other.GetObject()); //Get object reference
+
+	if (droid == nullptr) { //check object reference
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Astronaut cannot find droid")));
+	}
+
+	return TScriptInterface<ISwitch>(droid);
+}
+
+TScriptInterface<ISwitch> AAstronaut::GetAstronaut_Implementation()
+{
+	return TScriptInterface<ISwitch>(this); // convert this to variable holding 
+}
+
+TScriptInterface<ISwitch> AAstronaut::GetOther_Implementation()
+{
+	return Other;
+}
+
+bool AAstronaut::SetAstronaut_Implementation(const TScriptInterface<ISwitch>& astronaut)
+{
+	return false;
+}
+
+bool AAstronaut::SetDroid_Implementation(const TScriptInterface<ISwitch>& droid)
+{
+
+	if (Other.GetObject() != nullptr) return false;
+
+	if (ADroid* thisOne = Cast<ADroid>(this)) return false;
+
+	if (droid.GetObject()->Implements<USwitch>())
+	{
+		Other = TScriptInterface<ISwitch>(droid.GetObject());
+		return true;
+	}
+	return false;
+}
