@@ -1,20 +1,59 @@
-<mxfile host="app.diagrams.net" modified="2024-04-13T16:09:17.526Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="QU3sQgbFqRDMC-OPAqrz" version="24.2.5" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-20T13:29:33.197Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="PNG0_jsg0YP_7WG80Mo-" version="24.2.7" type="github">
   <diagram name="Page-1" id="c4acf3e9-155e-7222-9cf6-157b1a14988f">
-    <mxGraphModel dx="422" dy="616" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1434" dy="738" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1920" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="v89CsdgLvt-2hcjP8UX0-1" value="AAstronaut" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="300" y="50" width="310" height="190" as="geometry" />
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;" edge="1" parent="1" source="v89CsdgLvt-2hcjP8UX0-1" target="GjGzNpZ6_2Urf7ul3NtA-9">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="v89CsdgLvt-2hcjP8UX0-2" value="&lt;div&gt;+ AstronautWeapon: UWeapon*&lt;/div&gt;&lt;div&gt;+AstronautCamera: UCameraComponent*&lt;/div&gt;&lt;div&gt;+ AstronautMappingContext: UInputMappingContext*&lt;/div&gt;&lt;div&gt;+ActionLook :UInputAction*&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="v89CsdgLvt-2hcjP8UX0-1">
-          <mxGeometry y="26" width="310" height="74" as="geometry" />
+        <mxCell id="v89CsdgLvt-2hcjP8UX0-1" value="AAstronaut" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="345" y="578" width="445" height="268" as="geometry" />
         </mxCell>
-        <mxCell id="v89CsdgLvt-2hcjP8UX0-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="v89CsdgLvt-2hcjP8UX0-1">
-          <mxGeometry y="100" width="310" height="8" as="geometry" />
+        <mxCell id="v89CsdgLvt-2hcjP8UX0-2" value="&lt;div&gt;+ AstronautWeapon: UWeapon*&lt;/div&gt;&lt;div&gt;+AstronautCamera: UCameraComponent*&lt;/div&gt;&lt;div&gt;+ AstronautMappingContext: UInputMappingContext*&lt;/div&gt;&lt;div&gt;+ActionLook: UInputAction*&lt;/div&gt;&lt;div&gt;- HP: float&lt;/div&gt;&lt;div&gt;- HPMax: float&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="v89CsdgLvt-2hcjP8UX0-1" vertex="1">
+          <mxGeometry y="26" width="445" height="94" as="geometry" />
         </mxCell>
-        <mxCell id="v89CsdgLvt-2hcjP8UX0-4" value="+ AAstronaut()&lt;div&gt;&lt;i&gt;# Look(const Value: FInputAtionValue&amp;amp;): void&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;i&gt;# SetupPlayerInputComponent(PlayerInputComponent: UInputComponent*): void&lt;/i&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="v89CsdgLvt-2hcjP8UX0-1">
-          <mxGeometry y="108" width="310" height="82" as="geometry" />
+        <mxCell id="v89CsdgLvt-2hcjP8UX0-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="v89CsdgLvt-2hcjP8UX0-1" vertex="1">
+          <mxGeometry y="120" width="445" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="v89CsdgLvt-2hcjP8UX0-4" value="+ AAstronaut()&lt;div&gt;# virtual override BeginPlay(): void&lt;/div&gt;&lt;div&gt;+ GetOxygen(): float&lt;/div&gt;&lt;div&gt;+ GetOxygenMax(): float&lt;/div&gt;&lt;div&gt;# Look(const Value: FInputAtionValue&amp;amp;): void&lt;br&gt;&lt;div&gt;&lt;div&gt;# SetupPlayerInputComponent(PlayerInputComponent: UInputComponent*): void&lt;/div&gt;&lt;/div&gt;&lt;div&gt;+ virtual override Tick(DeltaTime: float): void&lt;/div&gt;&lt;/div&gt;&lt;div&gt;+ GetAmmo(): float&lt;/div&gt;&lt;div&gt;+ GetAmmoMax(): float&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="v89CsdgLvt-2hcjP8UX0-1" vertex="1">
+          <mxGeometry y="128" width="445" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-5" value="&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;div&gt;Damageable&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="453" y="73" width="261" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-6" value="+ virtual GetHPMax(): float&lt;div&gt;+ virtual GetHP(): float&lt;/div&gt;&lt;div&gt;+ virtual Damage(damageDone: float): bool&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GjGzNpZ6_2Urf7ul3NtA-5">
+          <mxGeometry y="26" width="261" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;" edge="1" parent="1" source="GjGzNpZ6_2Urf7ul3NtA-9" target="GjGzNpZ6_2Urf7ul3NtA-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-9" value="&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;div&gt;Playerable&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=39;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="606" y="257" width="271" height="179" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-10" value="- Other: AbstractPlayer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GjGzNpZ6_2Urf7ul3NtA-9">
+          <mxGeometry y="39" width="271" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="GjGzNpZ6_2Urf7ul3NtA-9">
+          <mxGeometry y="80" width="271" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-12" value="+ virtual GetAstronaut(): AAstronaut*&lt;div&gt;+ virtual GetDroid(): ADroid*&lt;/div&gt;&lt;div&gt;+ SetDroid(chara: ADroid*): bool&lt;/div&gt;&lt;div&gt;+ SetAstronaut(chara: AAstronaut*): bool&lt;/div&gt;&lt;div&gt;+ virtual GetOther(): AbstractPlayer*&lt;/div&gt;&lt;div&gt;+ Switch(): void&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GjGzNpZ6_2Urf7ul3NtA-9">
+          <mxGeometry y="88" width="271" height="91" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;" edge="1" parent="1" source="GjGzNpZ6_2Urf7ul3NtA-15" target="GjGzNpZ6_2Urf7ul3NtA-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-15" value="ADroid" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1024" y="582" width="497" height="292" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-16" value="+ ActionLook: UInputAction*&lt;div&gt;- ActionMove: UInputAction*&lt;/div&gt;&lt;div&gt;- DroidMappingContext: UInputMappingContext*&lt;/div&gt;&lt;div&gt;- DroidMesh: USkeletalMEshComponent*&lt;/div&gt;&lt;div&gt;- SpeedDeceleration: float&lt;/div&gt;&lt;div&gt;- SpeedMax: float&lt;/div&gt;&lt;div&gt;- SpringArmComponent: USpringArmComponent*&lt;/div&gt;&lt;div&gt;- ThirdPersonCameraComponent: UCameraComponent*&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GjGzNpZ6_2Urf7ul3NtA-15">
+          <mxGeometry y="26" width="497" height="131" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-17" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="GjGzNpZ6_2Urf7ul3NtA-15">
+          <mxGeometry y="157" width="497" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="GjGzNpZ6_2Urf7ul3NtA-18" value="+ ADroid()&lt;div&gt;# virtual override BeginPlay(): void&lt;/div&gt;&lt;div&gt;+ const GetCamera(): UCameraComponent*&lt;/div&gt;&lt;div&gt;+ const GetSpringArm(): USpringArmComponent*&lt;/div&gt;&lt;div&gt;# Look(Value: FInputActionValue&amp;amp;): void&lt;/div&gt;&lt;div&gt;# Move(Value: FInputActionValue&amp;amp;): void&lt;/div&gt;&lt;div&gt;+ SetupPlayerInputComponent(PlayerInputComponent:&amp;nbsp;UInputComponent*): void&lt;/div&gt;&lt;div&gt;+ virtual override Tick(DeltaTime: float): void&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="GjGzNpZ6_2Urf7ul3NtA-15">
+          <mxGeometry y="165" width="497" height="127" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
