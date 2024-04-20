@@ -81,7 +81,7 @@ public:
 	float GetOxygenMax();
 
 	/* Damage done to this character */
-	bool Damage(float damageDone);
+	bool DamageThis(float damageDone);
 
 	/* Get ammunition of gun */
 	float GetAmmo();

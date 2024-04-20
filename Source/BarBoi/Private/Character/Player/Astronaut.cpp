@@ -85,7 +85,7 @@ void AAstronaut::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	Damage(DeltaTime);
+	DamageThis(DeltaTime);
 	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Oxygen: %f"), GetOxygen()));
 
 	//Tick Weapon
@@ -122,7 +122,7 @@ float AAstronaut::GetOxygenMax()
 	return HPMax;
 }
 
-bool AAstronaut::Damage(float damageDone)
+bool AAstronaut::DamageThis(float damageDone)
 {
 	float newHP = GetOxygen() - damageDone;
 
