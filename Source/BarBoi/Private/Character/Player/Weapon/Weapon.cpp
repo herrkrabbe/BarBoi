@@ -63,7 +63,7 @@ void UWeapon::Fire()
 			}
 			const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-			const FVector SpawnLocation = GetOwner()->GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset) + 100.0f;
+			const FVector SpawnLocation = GetOwner()->GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
 
 			FString rotationString = SpawnRotation.ToString();
 			FString locationString = SpawnLocation.ToString();
@@ -107,6 +107,11 @@ void UWeapon::Repair()
 float UWeapon::GetHeat()
 {
 	return Heat;
+}
+
+float UWeapon::GetHeatMax()
+{
+	return HeatCapacity;
 }
 
 float UWeapon::Cooling(float deltaTime)

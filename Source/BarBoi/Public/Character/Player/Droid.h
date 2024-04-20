@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Switch.h"
 #include "Droid.generated.h"
 
 
@@ -16,7 +17,7 @@ class UInputMappingContext;
 struct FInputActionValue;
 
 UCLASS()
-class BARBOI_API ADroid : public ACharacter
+class BARBOI_API ADroid : public ACharacter, public ISwitch
 {
 	GENERATED_BODY()
 
@@ -78,4 +79,10 @@ public:
 	FORCEINLINE class USpringArmComponent* GetSpringArm() const { return SpringArmComponent; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetCamera() const { return ThirdPersonCameraComponent; }
+
+	TScriptInterface<ISwitch> GetDroid_Implementation() override;
+	TScriptInterface<ISwitch> GetAstronaut_Implementation() override;
+	TScriptInterface<ISwitch> GetOther_Implementation() override;
+	bool SetAstronaut_Implementation(const TScriptInterface<ISwitch>& astronaut) override;
+	bool SetDroid_Implementation(const TScriptInterface<ISwitch>& droid) override;
 };

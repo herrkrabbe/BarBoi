@@ -9,6 +9,7 @@
 
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include <Character/Player/Astronaut.h>
 
 // Sets default values
 ADroid::ADroid()
@@ -169,3 +170,49 @@ void ADroid::Look(const FInputActionValue& Value)
 	}
 }
 
+TScriptInterface<ISwitch> ADroid::GetDroid_Implementation()
+{
+
+
+	ADroid* droid = Cast<ADroid>(Other.GetObject()); //Get object reference
+
+	if (droid == nullptr) { //check object reference
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Astronaut cannot find droid")));
+	}
+
+	return TScriptInterface<ISwitch>(droid);
+}
+
+TScriptInterface<ISwitch> ADroid::GetAstronaut_Implementation()
+{
+	return TScriptInterface<ISwitch>(this); // convert this to variable holding 
+}
+
+TScriptInterface<ISwitch> ADroid::GetOther_Implementation()
+{
+	return Other;
+}
+
+bool ADroid::SetAstronaut_Implementation(const TScriptInterface<ISwitch>& astronaut)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Setting Astronaut in Droid")));
+
+	if (Other.GetObject() != nullptr) {
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Other is not null")));
+		return false;
+	}
+
+	if (AAstronaut* thisOne = Cast<AAstronaut>(this)) return false;
+
+	if (astronaut.GetObject()->Implements<USwitch>())
+	{
+		Other = TScriptInterface<ISwitch>(astronaut.GetObject());
+		return true;
+	}
+	return false;
+}
+
+bool ADroid::SetDroid_Implementation(const TScriptInterface<ISwitch>& droid)
+{
+	return false;
+}

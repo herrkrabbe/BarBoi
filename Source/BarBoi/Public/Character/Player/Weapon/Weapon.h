@@ -63,6 +63,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Heat")
 	float GetHeat();
 
+	/* Get max Heat value of weapon */
+	UFUNCTION(BlueprintCallable, Category = "Heat")
+	float GetHeatMax();
+
 	/* Function to cool gun.
 	returns heat removed*/
 	UFUNCTION(BlueprintCallable, Category = "Heat")
