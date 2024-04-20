@@ -20,11 +20,14 @@ class BARBOI_API AAstronaut : public ACharacter
 {
 	GENERATED_BODY()
 
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Oxygen", meta = (AllowPrivateAccess = "true"))
+	float HPMax = 300.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Oxygen", meta = (AllowPrivateAccess = "true"))
+	float HP = 150.f;
+
 public:
-	enum gunState {
-		FIRE = 0,
-		REPAIR = 1
-	};
 
 	//Components
 	//Note that Character already includes a SkeletalMeshComponent: Mesh
@@ -70,20 +73,13 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-private:
-	gunState eGunState;
+	/* Returns the oxygen or HP the austronaut has remaining*/
+	float GetOxygen();
 
-public:
-	/* Get state of Astronaut Gun
-FIRE = 0
-REPAIR = 1*/
-	gunState getGunState();
+	/* Returns the maximum oxygen or HP the austronaut can have*/
+	float GetOxygenMax();
 
-private:
-	/* Set state of Astronaut Gun
-FIRE
-REPAIR
-*/
-	void SetGunState(gunState fireMode);
+	/* Damage done to this character */
+	bool Damage(float damageDone);
 
 };

@@ -19,9 +19,6 @@ AAstronaut::AAstronaut()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//Sets initial firing mode
-	SetGunState(FIRE);
-
 	//Set Size for CapsuleComponent
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 
@@ -48,6 +45,18 @@ void AAstronaut::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//Constrain HP
+	if (GetOxygen() > GetOxygenMax()) //more than max
+	{
+		HP = GetOxygenMax();
+	}
+	else if (GetOxygen() < 0) //less than 0
+	{
+		HP = 1;
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Oxygen is less than 0"));
+	}
+
+	//Add Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller)) {
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer())) {
 			Subsystem->AddMappingContext(AstronautMapppingContext, 0);
@@ -75,6 +84,9 @@ void AAstronaut::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	Damage(DeltaTime);
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Oxygen: %f"), GetOxygen()));
+
 	//Tick Weapon
 	AstronautWeapon->TickWeapon(DeltaTime);
 
@@ -99,16 +111,29 @@ void AAstronaut::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	}
 }
 
-
-AAstronaut::gunState AAstronaut::getGunState()
+float AAstronaut::GetOxygen()
 {
-	return eGunState;
+	return HP;
 }
 
-
-void AAstronaut::SetGunState(gunState fireMode)
+float AAstronaut::GetOxygenMax()
 {
-	eGunState = fireMode;
+	return HPMax;
+}
+
+bool AAstronaut::Damage(float damageDone)
+{
+	float newHP = GetOxygen() - damageDone;
+
+	if (newHP <= 0) { //test if dead
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("PlayerCharacter is dead"));
+		RequestEngineExit("PlayerCharacter is dead");
+		return false;
+	}
+
+	HP = newHP;
+
+	return true;
 }
 
 
