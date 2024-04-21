@@ -44,7 +44,7 @@ public:
 
 	/*IMC for astronaut*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
-	UInputMappingContext* AstronautMapppingContext;
+	UInputMappingContext* AstronautMappingContext;
 
 	//Input Actions
 

@@ -60,7 +60,7 @@ void AAstronaut::BeginPlay()
 	//Add Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller)) {
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer())) {
-			Subsystem->AddMappingContext(AstronautMapppingContext, 0);
+			Subsystem->AddMappingContext(AstronautMappingContext, 0);
 		}
 	}
 	
