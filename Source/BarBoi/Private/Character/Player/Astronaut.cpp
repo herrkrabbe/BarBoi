@@ -8,8 +8,10 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include <Character/Player/Weapon/Weapon.h>
 #include <Character/Player/Droid.h>
+#include <Kismet/KismetSystemLibrary.h>
 
 
 
@@ -39,6 +41,9 @@ AAstronaut::AAstronaut()
 	AstronautWeapon->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
 	AstronautWeapon->SetOwnerNoSee(false);
 
+
+	GetCharacterMovement()->bRunPhysicsWithNoController = true;
+	GetCharacterMovement()->GravityScale = 0.f;
 }
 
 // Called when the game starts or when spawned
@@ -60,7 +65,7 @@ void AAstronaut::BeginPlay()
 	//Add Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller)) {
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer())) {
-			Subsystem->AddMappingContext(AstronautMapppingContext, 0);
+			Subsystem->AddMappingContext(AstronautMappingContext, 0);
 		}
 	}
 	
@@ -80,6 +85,37 @@ void AAstronaut::Look(const FInputActionValue& Value)
 	}
 }
 
+FVector AAstronaut::VectorToDroid()
+{
+	if (GetDroid_Implementation().GetObject() == nullptr) return FVector::Zero(); // Is droid set?
+
+	ADroid* droid = Cast<ADroid>(GetDroid_Implementation().GetObject()); //Get droid reference
+
+	if (droid == nullptr) return FVector::Zero(); //check cast
+
+	FVector ToDroid = droid->GetActorLocation() - GetActorLocation();
+
+	return ToDroid;
+}
+
+float AAstronaut::LengthToDroid()
+{
+	return VectorToDroid().Length();
+}
+
+void AAstronaut::MoveToDroid()
+{
+	ADroid* droid = Cast<ADroid>(GetDroid_Implementation().GetObject()); //Get droid reference
+
+	if(droid == nullptr) return; //check cast
+
+	double speed = droid->GetVelocity().Length();
+
+	FVector force = VectorToDroid() * 500;
+
+	GetCharacterMovement()->AddForce(force);
+}
+
 // Called every frame
 void AAstronaut::Tick(float DeltaTime)
 {
@@ -90,6 +126,8 @@ void AAstronaut::Tick(float DeltaTime)
 
 	//Tick Weapon
 	AstronautWeapon->TickWeapon(DeltaTime);
+
+	MoveToDroid();
 
 }
 
@@ -128,7 +166,23 @@ bool AAstronaut::DamageThis(float damageDone)
 
 	if (newHP <= 0) { //test if dead
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("PlayerCharacter is dead"));
-		RequestEngineExit("PlayerCharacter is dead");
+
+		APlayerController* PlayerController;
+
+		if (Controller == nullptr) {
+			//Because this is not controlled, it means the droid is controlled
+			//therefore we get the droid's controller for the function
+			
+			PlayerController = Cast<APlayerController>(Cast<ADroid>(GetDroid_Implementation().GetObject())->Controller);
+		}
+		else {
+			PlayerController = Cast<APlayerController>(Controller);
+		}
+
+		//attemt quit game
+		UKismetSystemLibrary::QuitGame(GetWorld(), PlayerController, EQuitPreference::Quit, false);
+
+
 		return false;
 	}
 
