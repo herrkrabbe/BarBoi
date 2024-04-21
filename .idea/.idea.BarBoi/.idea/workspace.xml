@@ -11,13 +11,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9f9de135-d973-4318-8c94-1bd6bd72cbfd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BarBoi.dir/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BarBoi.dir/.idea/projectSettingsUpdater.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BarBoi.dir/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BarBoi.dir/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BarBoi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BarBoi/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Enemy/HeadMonster.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/HeadMonster.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Group_11/Maps/ErikE_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Group_11/Maps/ErikE_Map.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/BarBoi/Private/Enemy/Character/UEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Private/Enemy/Character/UEnemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Private/Enemy/EnemyAIController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Private/Enemy/EnemyAIController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy/Character/UEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy/Character/UEnemy.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy/EnemyAIController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy/EnemyAIController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +41,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;C++ Project.BarBoi.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;erik__prototype&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -187,7 +191,8 @@
       <workItem from="1713694548141" duration="3550000" />
       <workItem from="1713698997073" duration="17000" />
       <workItem from="1713699173586" duration="224000" />
-      <workItem from="1713699874010" duration="3133000" />
+      <workItem from="1713699874010" duration="15759000" />
+      <workItem from="1713718996695" duration="1974000" />
     </task>
     <servers />
   </component>

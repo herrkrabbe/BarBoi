@@ -23,7 +23,7 @@ class BARBOI_API IEnemy
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
-private:
+protected:
 	AAstronaut* target;
 
 	float HP;
@@ -39,7 +39,8 @@ public:
 	float GetHPMax() { return HPMax; }
 
 	/* Deal damage to this instance. Function is responsible for destroying actor if its hp reaches 0 or less.
-	returns new HP*/
+	returns new HP.
+	returns HP remaining*/
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Damage")
 	float DamageThis(float DamageTaken);
 	
@@ -62,7 +63,9 @@ protected:
 
 	AAstronaut* GetTarget() { return target; }
 
-	/* Rudementary function for dealing damage to target. Does not check for conditions */
+	/* Rudementary function for dealing damage to target. Does not check for conditions
+	 * returns HP remaining of target
+	 */
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Damage")
 	float DamageTarget(float DamageDealt);
 
