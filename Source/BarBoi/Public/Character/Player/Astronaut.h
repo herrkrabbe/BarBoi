@@ -44,7 +44,7 @@ public:
 
 	/*IMC for astronaut*/
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
-	UInputMappingContext* AstronautMapppingContext;
+	UInputMappingContext* AstronautMappingContext;
 
 	//Input Actions
 
@@ -66,6 +66,21 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+
+	/* Get the vector from Astronaut to Droid
+	returns a zero vector if Drone is not set*/
+	UFUNCTION(BlueprintCallable, Category = "Towing")
+	FVector VectorToDroid();
+
+	/* Get length of vector from Astronaut to Droid
+	returns zero if drone is not set*/
+	UFUNCTION(BlueprintCallable, Category = "Towing")
+	float LengthToDroid();
+
+	/* Move Astronaut to Droid
+	This function does not test for length between them*/
+	UFUNCTION(BlueprintCallable, Category = "Towing")
+	void MoveToDroid();
 
 public:	
 	// Called every frame
