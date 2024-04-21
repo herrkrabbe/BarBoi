@@ -172,7 +172,8 @@ bool AAstronaut::DamageThis(float damageDone)
 		if (Controller == nullptr) {
 			//Because this is not controlled, it means the droid is controlled
 			//therefore we get the droid's controller for the function
-			APlayerController* PlayerController = Cast<APlayerController>(Cast<ADroid>(GetDroid_Implementation().GetObject())->Controller);
+			
+			PlayerController = Cast<APlayerController>(Cast<ADroid>(GetDroid_Implementation().GetObject())->Controller);
 		}
 		else {
 			PlayerController = Cast<APlayerController>(Controller);
