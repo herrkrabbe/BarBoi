@@ -11,19 +11,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9f9de135-d973-4318-8c94-1bd6bd72cbfd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/BarBoi.uproject" beforeDir="false" afterPath="$PROJECT_DIR$/BarBoi.uproject" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/C_801/SpaceBuddy/source/SpaceStationParts1.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/C_801/SpaceBuddy/source/SpaceStationParts1.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/C_801/SpaceBuddy/source/SpaceStationParts2.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/C_801/SpaceBuddy/source/SpaceStationParts2.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/C_801/SpaceBuddy/source/SpaceStationParts3.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/C_801/SpaceBuddy/source/SpaceStationParts3.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Ship/source/Ship/Tur_P1Mothership.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Ship/source/Ship/Tur_P1Mothership.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Ship/source/Ship/Tur_P1MothershipEngine.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Ship/source/Ship/Tur_P1MothershipEngine.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/Ship/source/Ship/Tur_P1MothershipHangar.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/Ship/source/Ship/Tur_P1MothershipHangar.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Assets/SkyDome/Void.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Assets/SkyDome/Void.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Group_11/Blueprints/BP_Astronaut.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Group_11/Blueprints/BP_Astronaut.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Group_11/Maps/Asteroid_Field.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Group_11/Maps/Asteroid_Field.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/BarBoi/BarBoi.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/BarBoi.Build.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Private/Character/Player/Astronaut.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Private/Character/Player/Astronaut.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Public/Character/Player/Astronaut.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Public/Character/Player/Astronaut.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BarBoi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BarBoi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Enemy/HeadMonster.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Enemy/HeadMonster.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Group_11/Maps/ErikE_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Group_11/Maps/ErikE_Map.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Private/Enemy/Character/UEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Private/Enemy/Character/UEnemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Private/Enemy/EnemyAIController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Private/Enemy/EnemyAIController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy/Character/UEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy/Character/UEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy/EnemyAIController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy/EnemyAIController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,6 +187,7 @@
       <workItem from="1713694548141" duration="3550000" />
       <workItem from="1713698997073" duration="17000" />
       <workItem from="1713699173586" duration="224000" />
+      <workItem from="1713699874010" duration="3133000" />
     </task>
     <servers />
   </component>

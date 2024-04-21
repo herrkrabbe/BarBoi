@@ -20,6 +20,9 @@ public:
 
 private:
 
+	/**
+	 * 
+	 */
 	class UNavigationSystemV1* NavArea;
 
 	FVector RandomLocation;

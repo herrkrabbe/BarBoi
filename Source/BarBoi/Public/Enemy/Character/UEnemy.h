@@ -15,32 +15,36 @@ public:
 	// Sets default values for this character's properties
 	AUEnemy();
 
-	//Setting up classes i need to create the Enemy logic
+	//Setting up classes I need to create the Enemy logic
 	
 	bool PLayerDetected;
 	bool CanAttackPlayer;
 
-	//Added bool Variable. To Access in the BP_Enemy Aniamtion to set it true or false on the state of the attack animation;
+	//Added bool Variable. To access "CanDealDamage" in Blueprint
 	UPROPERTY(BlueprintReadWrite)
 		bool CanDealDamage;
 	
 	class AEnemy_AICharacther* PlayerREF;
 
+	//
 	UPROPERTY(EditAnywhere)
 		class USphereComponent* PlayerCollisionDetection;
 
+	//
 	UPROPERTY(EditAnywhere)
 		class USphereComponent* PlayerAttackCollisionDetection;
 
+	// 
 	UPROPERTY(EditAnywhere)
 		class UBoxComponent* DamageCollision;
+	
+	class AEnemyAIController* EnemyAIController;
 
-	
-	
-	
+	void OnAIMoveCompleted(struct FAIRequestID RequestID, const struct FPathFollowingResult& Result);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	auto OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result) const -> void;
 
 public:	
 	// Called every frame

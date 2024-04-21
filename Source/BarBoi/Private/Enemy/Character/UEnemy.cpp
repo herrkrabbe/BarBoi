@@ -2,6 +2,9 @@
 
 
 #include "Enemy/Character/UEnemy.h"
+#include "Enemy/EnemyAIController.h"
+#include "Navigation/PathFollowingComponent.h"
+#include "AITypes.h"
 #include "Components/SphereComponent.h"
 #include "Components/BoxComponent.h"
 
@@ -12,7 +15,7 @@ AUEnemy::AUEnemy()
 	PrimaryActorTick.bCanEverTick = true;
 
 
-	//Creating componets where i am attaching DamageCollison variable to the mesh
+	//Creating components where its attaching Damage Collision variable to the mesh
 	PlayerCollisionDetection =
 		CreateDefaultSubobject<USphereComponent>(TEXT("Player Collision Detection"));
 
@@ -27,13 +30,22 @@ AUEnemy::AUEnemy()
 	DamageCollision->SetupAttachment(GetMesh(),TEXT("RightHandSocket"));
 }
 
+
+
 // Called when the game starts or when spawned
 void AUEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+
+	EnemyAIController = Cast<AEnemyAIController>(GetController());
+	EnemyAIController->GetPathFollowingComponent()->OnRequestFinished.AddUObject(this, &AUEnemy::OnAIMoveCompleted);
 	
 }
 
+void AUEnemy::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingResult& Result) const -> void
+	{
+	EnemyAIController->Patrol();
+}
 // Called every frame
 void AUEnemy::Tick(float DeltaTime)
 {

@@ -10,7 +10,7 @@
 
 void AEnemyAIController::BeginPlay()
 {
-	//Have to use super otwerwise Characther wont move
+	//Have to use super otherwise Character cant move
 	Super::BeginPlay();
 
 	NavArea = FNavigationSystem::GetCurrent<UNavigationSystemV1>(this);
@@ -23,7 +23,7 @@ void AEnemyAIController::Patrol()
 	if (NavArea)
 	{
 		// k2 takes the world as the first parameter.
-		// Second searches for a reaceable Location
+		// Second searches for a reachable Location for enemy
 		NavArea->K2_GetRandomReachablePointInRadius(GetWorld(), GetPawn()->GetActorLocation(), RandomLocation, 15000.0f);
 
 		//Makes AI MoveToLocation
