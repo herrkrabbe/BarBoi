@@ -35,6 +35,7 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Get")
 	TScriptInterface<ISwitch> GetOther();
 	
+	// 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Get")
 	TScriptInterface<ISwitch> GetAstronaut();
 	

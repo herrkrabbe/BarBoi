@@ -23,6 +23,8 @@ public:
 	// Sets default values for this actor's properties
 	ALaser();
 
+	virtual void BeginPlay() override;
+
 public:	
 
 

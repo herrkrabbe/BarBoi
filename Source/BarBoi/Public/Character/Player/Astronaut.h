@@ -5,8 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Switch.h"
-#include "Astronaut.generated.h"
 
+#include <Components/SphereComponent.h>
+#include "Astronaut.generated.h"
 class UInputComponent;
 class USkeletalMeshComponent;
 class UWeapon;
@@ -46,11 +47,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* AstronautMappingContext;
 
-	//Input Actions
-
-	/* Action for Actions. Fire, repair etc. */
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
-	//UInputAction* ActionAction;
+	/* Sphere collision component to register overlapping */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Overlap")
+	USphereComponent* OverlapSphere;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
@@ -109,4 +108,7 @@ public:
 	TScriptInterface<ISwitch> GetOther_Implementation() override;
 	bool SetAstronaut_Implementation(const TScriptInterface<ISwitch>& astronaut) override;
 	bool SetDroid_Implementation(const TScriptInterface<ISwitch>& droid) override;
+
+protected:
+	void PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

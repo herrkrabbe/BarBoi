@@ -41,9 +41,14 @@ AAstronaut::AAstronaut()
 	AstronautWeapon->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
 	AstronautWeapon->SetOwnerNoSee(false);
 
-
+	//change physics
 	GetCharacterMovement()->bRunPhysicsWithNoController = true;
 	GetCharacterMovement()->GravityScale = 0.f;
+	
+
+	//creating itneraction sphere
+	OverlapSphere = CreateDefaultSubobject<USphereComponent>(TEXT("OverlapSphere"));
+	
 }
 
 // Called when the game starts or when spawned
@@ -61,6 +66,9 @@ void AAstronaut::BeginPlay()
 		HP = 1;
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Oxygen is less than 0"));
 	}
+
+	//enable overlap event
+	OverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &AAstronaut::PickupItem);
 
 	//Add Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller)) {
@@ -242,4 +250,9 @@ bool AAstronaut::SetDroid_Implementation(const TScriptInterface<ISwitch>& droid)
 		return true;
 	}
 	return false;
+}
+
+void AAstronaut::PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	return;
 }

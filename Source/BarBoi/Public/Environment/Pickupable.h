@@ -33,4 +33,6 @@ public:
 	/* Function handles operations before picking up item.
 	returns the PickupType of the class*/
 	virtual PickupType Pickup() = 0;
+
+	
 };
