@@ -31,6 +31,7 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Repair", meta = (AllowPrivateAccess = "true"))
 	int Scrap = 0;
+	 
 
 public:
 
