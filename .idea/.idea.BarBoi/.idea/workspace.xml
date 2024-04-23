@@ -11,16 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9f9de135-d973-4318-8c94-1bd6bd72cbfd" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BarBoi.dir/.idea/indexLayout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BarBoi.dir/.idea/projectSettingsUpdater.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BarBoi.dir/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BarBoi.dir/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BarBoi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BarBoi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Group_11/Blueprints/Enemy/BP_HeadMonster_CPP.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Group_11/Blueprints/Enemy/BP_HeadMonster_CPP.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Group_11/Maps/ErikE_Map.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Group_11/Maps/ErikE_Map.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Private/Enemy/Character/UEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Private/Enemy/Character/UEnemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy/Character/UEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/Public/Enemy/Character/UEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/BarBoi/BarBoi.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/BarBoi/BarBoi.Build.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +23,10 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Source/BarBoi/Private/Enemy/MyBTAIController.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/BarBoi/Public/Enemy/MyBTAIController.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -39,26 +37,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C++ Project.BarBoi.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;erik__prototype&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "C++ Project.BarBoi.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "erik__prototype",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\erike\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\erike\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\erike\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\erike\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\erike\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\erike\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C++ Project.BarBoi">
     <configuration name="BarBoi" type="CppProject" factoryName="C++ Project">
       <configuration_1>
@@ -193,6 +192,7 @@
       <workItem from="1713699173586" duration="224000" />
       <workItem from="1713699874010" duration="15759000" />
       <workItem from="1713718996695" duration="1974000" />
+      <workItem from="1713880371253" duration="3712000" />
     </task>
     <servers />
   </component>
