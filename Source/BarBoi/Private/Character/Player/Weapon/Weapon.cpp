@@ -83,7 +83,7 @@ void UWeapon::Repair()
 
 	FHitResult HitResult;
 	FCollisionQueryParams CollisionsParams;
-	CollisionsParams.AddIgnoredComponent(this);
+	CollisionsParams.AddIgnoredActor(GetOwner());
 	
 	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartTrace, EndTrace, ECC_Visibility, CollisionsParams)) {
 		IRepairable* repairable = Cast<IRepairable>(HitResult.GetActor());
