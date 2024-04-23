@@ -27,6 +27,8 @@ ADroid::ADroid()
 	GetCharacterMovement()->MaxFlySpeed = SpeedMax;
 	GetCharacterMovement()->BrakingDecelerationFlying = SpeedDeceleration;
 
+	GetCharacterMovement()->bRunPhysicsWithNoController = true;
+
 	//GRAVITY IS DISABLED AND FLYING ENABLED IN BeginPlay()
 	GetCharacterMovement()->GravityScale = 0.f;
 	
