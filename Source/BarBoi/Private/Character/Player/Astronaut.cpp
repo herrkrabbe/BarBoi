@@ -12,6 +12,7 @@
 #include <Character/Player/Weapon/Weapon.h>
 #include <Character/Player/Droid.h>
 #include <Kismet/KismetSystemLibrary.h>
+#include <Environment/Pickupable.h>
 
 
 
@@ -168,6 +169,22 @@ float AAstronaut::GetOxygenMax()
 	return HPMax;
 }
 
+float AAstronaut::AddOxygen(float amount)
+{
+	if (amount <= 0) return 0.f;
+
+	float overcapped = HP + amount - HPMax;
+
+	HP += amount;
+
+	if (HP > HPMax) {
+		HP = HPMax;
+		return overcapped;
+	}
+	
+	return amount;
+}
+
 bool AAstronaut::DamageThis(float damageDone)
 {
 	float newHP = GetOxygen() - damageDone;
@@ -254,5 +271,30 @@ bool AAstronaut::SetDroid_Implementation(const TScriptInterface<ISwitch>& droid)
 
 void AAstronaut::PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	return;
+	IPickupable* pickup = Cast<IPickupable>(OtherActor);
+	if (pickup == nullptr) return;
+
+	PickupType type = pickup->Pickup();
+
+	switch(type) {
+	case SCRAP:
+		PickupScrap(1);
+		break;
+	case OXYGEN:
+		PickupOxygen(40);
+		break;
+	default:
+		break;
+	}
+
+}
+
+void AAstronaut::PickupScrap(int amount)
+{
+	Scrap += amount;
+}
+
+void AAstronaut::PickupOxygen(float amount)
+{
+	AddOxygen(amount);
 }

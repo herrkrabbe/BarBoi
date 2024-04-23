@@ -29,6 +29,9 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Oxygen", meta = (AllowPrivateAccess = "true"))
 	float HP = 150.f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Repair", meta = (AllowPrivateAccess = "true"))
+	int Scrap = 0;
+
 public:
 
 	//Components
@@ -89,10 +92,18 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	/* Returns the oxygen or HP the austronaut has remaining*/
+	UFUNCTION(BlueprintCallable, Category = "Oxygen")
 	float GetOxygen();
 
 	/* Returns the maximum oxygen or HP the austronaut can have*/
+	UFUNCTION(BlueprintCallable, Category = "Oxygen")
 	float GetOxygenMax();
+
+	/* Adds oxygen, and applies restraint for max Oxygen. 
+	returns how much oxygen was added. 
+	Negative amounts returns 0*/
+	UFUNCTION(BlueprintCallable, Category = "Oxygen")
+	float AddOxygen(float amount);
 
 	/* Damage done to this character */
 	bool DamageThis(float damageDone);
@@ -111,4 +122,14 @@ public:
 
 protected:
 	void PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+private:
+	/* function for picking up scrap */
+	UFUNCTION(BlueprintCallable, Category = "Repair", meta = (AllowPrivateAccess = "true"))
+	void PickupScrap(int amount);
+
+	/* function for picking up oxygen pickup */
+	UFUNCTION(BlueprintCallable, Category = "Pickup", meta = (AllowPrivateAccess = "true"))
+	void PickupOxygen(float amount);
+
 };
