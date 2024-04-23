@@ -31,6 +31,8 @@ ALaser::ALaser()
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->ProjectileGravityScale = 0.f; // disabling gravity
+
+	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &ALaser::OnLaserBeginOverlap);
 }
 
 void ALaser::BeginPlay()
@@ -39,7 +41,7 @@ void ALaser::BeginPlay()
 
 
 	//Enable overlap event
-	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &ALaser::OnLaserBeginOverlap);
+	
 }
 
 void ALaser::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)

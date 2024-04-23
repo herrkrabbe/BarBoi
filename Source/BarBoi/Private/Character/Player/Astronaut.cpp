@@ -50,6 +50,8 @@ AAstronaut::AAstronaut()
 	//creating itneraction sphere
 	OverlapSphere = CreateDefaultSubobject<USphereComponent>(TEXT("OverlapSphere"));
 	
+	//enable overlap event
+	OverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &AAstronaut::PickupItem);
 }
 
 // Called when the game starts or when spawned
@@ -68,8 +70,7 @@ void AAstronaut::BeginPlay()
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Oxygen is less than 0"));
 	}
 
-	//enable overlap event
-	OverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &AAstronaut::PickupItem);
+	
 
 	//Add Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller)) {

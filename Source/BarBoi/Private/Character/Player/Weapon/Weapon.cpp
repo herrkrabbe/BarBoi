@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include <Environment/Repairable.h>
 
 UWeapon::UWeapon()
 {
@@ -27,53 +28,37 @@ void UWeapon::TickWeapon(float deltaTime)
 
 void UWeapon::Fire()
 {
-	
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Start Fire%f")));
 
 
 	// This block is taken from FPS template
 	if (Character == nullptr || Character->GetController() == nullptr)
 	{
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No Character%f")));
 		return;
 	}
 
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has Character Character%f")));
-
 	// weapon cannot fire while overheated or has recently fired
 	if (FireCooldown != 0 || bIsOverheated) {
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, Overheated%f")));
 		return;
 	}
 	// Try and fire a projectile. This block is taken from FPS template
 	if (ProjectileClass != nullptr)
 	{
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has ProjectileClass%f")));
 		UWorld* const World = GetWorld();
 		if (World != nullptr)
 		{
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has World%f")));
 			APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
 			if (PlayerController == nullptr) {
-				//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No PlayerController%f")));
 				return;
 			}
-			else {
-				//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Has PlayerController%f")));
-			}
+
 			const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
 			const FVector SpawnLocation = GetOwner()->GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
 
 			FString rotationString = SpawnRotation.ToString();
 			FString locationString = SpawnLocation.ToString();
 
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, rotationString);
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, locationString);
-
 			//Set Spawn Collision Handling Override
 			FActorSpawnParameters ActorSpawnParams;
-			//ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 			// Spawn the projectile at the muzzle
@@ -83,15 +68,7 @@ void UWeapon::Fire()
 			FireCooldown = FireRate;
 			AddHeat(HeatPerShot);
 		}
-		else {
-			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No World%f")));
-		}
 	}
-	else {
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fail Fire, No Projectile Class%f")));
-	}
-
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Fire End%f")));
 }
 
 void UWeapon::Repair()
@@ -101,7 +78,20 @@ void UWeapon::Repair()
 	if(FireCooldown != 0 || bIsOverheated) return;
 
 
-	//TODO
+	FVector StartTrace = GetComponentLocation();
+	FVector EndTrace = StartTrace + GetComponentRotation().Vector() * 100;
+
+	FHitResult HitResult;
+	FCollisionQueryParams CollisionsParams;
+	CollisionsParams.AddIgnoredComponent(this);
+	
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartTrace, EndTrace, ECC_Visibility, CollisionsParams)) {
+		IRepairable* repairable = Cast<IRepairable>(HitResult.GetActor());
+		if (repairable == nullptr) return;
+
+		repairable->Repair();
+	}
+
 }
 
 float UWeapon::GetHeat()
