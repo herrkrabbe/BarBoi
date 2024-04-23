@@ -4,18 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "Pickupable.generated.h"
-
-enum PickupType {
-	NONE = 0,
-	SCRAP = 1,
-	OXYGEN = 2,
-	AMMO = 3
-};
+#include "Repairable.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UPickupable : public UInterface
+class URepairable : public UInterface
 {
 	GENERATED_BODY()
 };
@@ -23,14 +16,10 @@ class UPickupable : public UInterface
 /**
  * 
  */
-class BARBOI_API IPickupable
+class BARBOI_API IRepairable
 {
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-
-	/* Function handles operations before picking up item.
-	returns the PickupType of the class*/
-	virtual PickupType Pickup() = 0;
 };
