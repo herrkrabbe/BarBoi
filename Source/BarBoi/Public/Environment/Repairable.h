@@ -31,6 +31,8 @@ class URepairable : public UInterface
 class BARBOI_API IRepairable
 {
 	GENERATED_BODY()
+protected:
+	RepairPhase RepairState = UNREPAIRED;
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:

@@ -22,6 +22,8 @@ AScrap::AScrap()
 	//enable overlap event for picking up
 	CollisionBox->SetGenerateOverlapEvents(true);
 
+	CollisionBox->SetEnableGravity(false);
+
 }
 
 // Called when the game starts or when spawned
