@@ -48,18 +48,18 @@ void ALaser::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveC
 	//applying damage to enemy
 	if (OtherActor->Implements<UEnemy>()) {
 
-		IEnemy::Execute_DamageTarget(OtherActor, Damage);
-		OtherActor->Destroy();
-		Destroy();
+		IEnemy::Execute_DamageThis(OtherActor, Damage);
+		
+		//Destroy();
 	}
 	else if (enemy != nullptr) { //fallback method if previous if statement does not work for C++
 		enemy->DamageTarget_Implementation(Damage);
-		Destroy();
+		
 	}
 	
 }
 
-void ALaser::OnLaserBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void ALaser::OnLaserBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	OnHit(OverlappedComp, OtherActor, OtherComp, FVector(0.f, 0.f, 0.f), SweepResult);
 }

@@ -90,7 +90,7 @@ public:
 
 	bool SetTarget_Implementation(AAstronaut* newTarget) override;
 
-	float DamageThis_Implementation(float DamageTaken) override;
+	void DamageThis_Implementation(float DamageTaken) override;
 
 	float DamageTarget_Implementation(float DamageDealt) override;
 	
