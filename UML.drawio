@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-04-24T12:52:36.600Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="q5uh1hKl1SQzmHIZB52-" version="24.2.7" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-24T12:56:17.314Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="ulmqZw8-bmNzaq_0i9q9" version="24.2.7" type="github">
   <diagram name="Page-1" id="c4acf3e9-155e-7222-9cf6-157b1a14988f">
-    <mxGraphModel dx="1878" dy="951" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3000" pageHeight="3000" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1744" dy="883" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3000" pageHeight="3000" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -29,7 +29,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="v89CsdgLvt-2hcjP8UX0-1" value="AAstronaut" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1767" y="823" width="314" height="348" as="geometry" />
+          <mxGeometry x="1676" y="947.5" width="314" height="348" as="geometry" />
         </mxCell>
         <mxCell id="v89CsdgLvt-2hcjP8UX0-2" value="&lt;div&gt;+ AstronautWeapon: UWeapon*&lt;/div&gt;&lt;div&gt;+ AstronautCamera: UCameraComponent*&lt;/div&gt;&lt;div&gt;+ AstronautMappingContext: UInputMappingContext*&lt;/div&gt;&lt;div&gt;+ ActionLook: UInputAction*&lt;/div&gt;&lt;div&gt;- Oxygen: float&lt;/div&gt;&lt;div&gt;- OxygenMax: float&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="v89CsdgLvt-2hcjP8UX0-1" vertex="1">
           <mxGeometry y="26" width="314" height="107" as="geometry" />
@@ -41,7 +41,7 @@
           <mxGeometry y="141" width="314" height="207" as="geometry" />
         </mxCell>
         <mxCell id="GjGzNpZ6_2Urf7ul3NtA-9" value="&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;div&gt;ISwitch&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=39;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="2092" y="550" width="215" height="179" as="geometry" />
+          <mxGeometry x="1917" y="681" width="215" height="179" as="geometry" />
         </mxCell>
         <mxCell id="GjGzNpZ6_2Urf7ul3NtA-10" value="- Other: AbstractPlayer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GjGzNpZ6_2Urf7ul3NtA-9" vertex="1">
           <mxGeometry y="39" width="215" height="41" as="geometry" />
@@ -64,7 +64,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="GjGzNpZ6_2Urf7ul3NtA-15" value="ADroid" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="2398" y="825" width="320" height="292" as="geometry" />
+          <mxGeometry x="2077" y="1160" width="320" height="292" as="geometry" />
         </mxCell>
         <mxCell id="GjGzNpZ6_2Urf7ul3NtA-16" value="+ ActionLook: UInputAction*&lt;div&gt;- ActionMove: UInputAction*&lt;/div&gt;&lt;div&gt;- DroidMappingContext: UInputMappingContext*&lt;/div&gt;&lt;div&gt;- DroidMesh: USkeletalMEshComponent*&lt;/div&gt;&lt;div&gt;- SpeedDeceleration: float&lt;/div&gt;&lt;div&gt;- SpeedMax: float&lt;/div&gt;&lt;div&gt;- SpringArmComponent: USpringArmComponent*&lt;/div&gt;&lt;div&gt;- ThirdPersonCameraComponent: UCameraComponent*&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="GjGzNpZ6_2Urf7ul3NtA-15" vertex="1">
           <mxGeometry y="26" width="320" height="131" as="geometry" />
@@ -76,7 +76,7 @@
           <mxGeometry y="165" width="320" height="127" as="geometry" />
         </mxCell>
         <mxCell id="pTTVUBrMpuXwKr1Ro-rV-5" value="&lt;span style=&quot;font-weight: 400;&quot;&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/span&gt;&lt;div style=&quot;font-weight: 400;&quot;&gt;IMonster&lt;/div&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=38;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="493" y="706" width="286" height="190" as="geometry" />
+          <mxGeometry x="915" y="831" width="286" height="190" as="geometry" />
         </mxCell>
         <mxCell id="pTTVUBrMpuXwKr1Ro-rV-6" value="- HP: float&lt;div&gt;- Damage: float&lt;/div&gt;&lt;div&gt;- target: AAstronaut*&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="pTTVUBrMpuXwKr1Ro-rV-5" vertex="1">
           <mxGeometry y="38" width="286" height="66" as="geometry" />
@@ -109,14 +109,14 @@
         <mxCell id="5UMAS7-7MxUsGcrUEy_Y-4" value="- AddHeat(float): void&lt;div&gt;- ApplyHeatLimits(): void&lt;/div&gt;&lt;div&gt;+ Cooling(float): float&lt;/div&gt;&lt;div&gt;# virtual EndPlay(&lt;u&gt;EEndPlayReason::Type&lt;/u&gt;) override&lt;/div&gt;&lt;div&gt;+ Fire(): void&lt;/div&gt;&lt;div&gt;- FireCooldownTick(float): void&lt;/div&gt;&lt;div&gt;+ GetHeat(): float&lt;/div&gt;&lt;div&gt;+ GetHeatMax(): float&lt;/div&gt;&lt;div&gt;+ Repair(): void&lt;/div&gt;&lt;div&gt;- SetHeat(float)&lt;/div&gt;&lt;div&gt;+ SetupInput(AAstronaut*): bool&lt;/div&gt;&lt;div&gt;+ TickWeapon(float): void&lt;/div&gt;&lt;div&gt;+ UWeapon()&lt;/div&gt;&lt;div&gt;+ UWeapon(AAstronaut*)&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="5UMAS7-7MxUsGcrUEy_Y-1">
           <mxGeometry y="233" width="295" height="228" as="geometry" />
         </mxCell>
-        <mxCell id="5UMAS7-7MxUsGcrUEy_Y-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="5UMAS7-7MxUsGcrUEy_Y-8" target="pTTVUBrMpuXwKr1Ro-rV-5">
+        <mxCell id="5UMAS7-7MxUsGcrUEy_Y-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;dashed=1;" edge="1" parent="1" source="5UMAS7-7MxUsGcrUEy_Y-8" target="pTTVUBrMpuXwKr1Ro-rV-5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="5UMAS7-7MxUsGcrUEy_Y-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" parent="1" source="5UMAS7-7MxUsGcrUEy_Y-8" target="5UMAS7-7MxUsGcrUEy_Y-23">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="5UMAS7-7MxUsGcrUEy_Y-8" value="ALaser" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1258" y="550" width="451" height="209" as="geometry" />
+          <mxGeometry x="783" y="1094" width="451" height="209" as="geometry" />
         </mxCell>
         <mxCell id="5UMAS7-7MxUsGcrUEy_Y-9" value="# CollisionComp: UBoxComponent*&lt;div&gt;+ Damage: float&lt;/div&gt;&lt;div&gt;# ProjectileMovement: UProjectileMovementComponent*&lt;/div&gt;&lt;div&gt;+ speedInitial: float&lt;/div&gt;&lt;div&gt;+ speedMax: float&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="5UMAS7-7MxUsGcrUEy_Y-8">
           <mxGeometry y="26" width="451" height="80" as="geometry" />
@@ -128,13 +128,13 @@
           <mxGeometry y="114" width="451" height="95" as="geometry" />
         </mxCell>
         <mxCell id="5UMAS7-7MxUsGcrUEy_Y-18" value="ACharacter" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="2165" y="1027" width="110" height="50" as="geometry" />
+          <mxGeometry x="2051" y="884" width="110" height="50" as="geometry" />
         </mxCell>
         <mxCell id="5UMAS7-7MxUsGcrUEy_Y-21" value="UMeshComponent" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="1595" y="798" width="110" height="50" as="geometry" />
+          <mxGeometry x="1607" y="821" width="110" height="50" as="geometry" />
         </mxCell>
         <mxCell id="5UMAS7-7MxUsGcrUEy_Y-23" value="AActor" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="1486" y="406" width="110" height="50" as="geometry" />
+          <mxGeometry x="950" y="1380" width="110" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
