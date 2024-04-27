@@ -8,6 +8,9 @@
 #include "Pickupable.h"
 #include "Scrap.generated.h"
 
+class UBoxComponent;
+
+
 /* AScrap is a class representing scrap the player can pick up.
 the mesh and collision is implemented in Blueprints*/
 UCLASS()
@@ -21,8 +24,11 @@ public:
 	// Sets default values for this actor's properties
 	AScrap();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
-	UStaticMeshComponent* Mesh;
+	UPROPERTY(VisibleAnywhere, Category = "Overlap")
+	UBoxComponent* CollisionBox;
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+	//UStaticMeshComponent* Mesh;
 
 protected:
 	// Called when the game starts or when spawned

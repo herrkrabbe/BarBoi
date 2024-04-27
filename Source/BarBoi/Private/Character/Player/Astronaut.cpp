@@ -49,9 +49,13 @@ AAstronaut::AAstronaut()
 
 	//creating itneraction sphere
 	OverlapSphere = CreateDefaultSubobject<USphereComponent>(TEXT("OverlapSphere"));
-	
+	OverlapSphere->SetupAttachment(GetCapsuleComponent());
+	OverlapSphere->SetGenerateOverlapEvents(true);
+	OverlapSphere->SetSphereRadius(50.f);
+
 	//enable overlap event
-	OverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &AAstronaut::PickupItem);
+	
+
 }
 
 // Called when the game starts or when spawned
@@ -78,6 +82,9 @@ void AAstronaut::BeginPlay()
 			Subsystem->AddMappingContext(AstronautMappingContext, 0);
 		}
 	}
+
+	// Add overlap event
+	OverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &AAstronaut::PickupItem);
 	
 }
 
@@ -258,30 +265,38 @@ bool AAstronaut::SetAstronaut_Implementation(const TScriptInterface<ISwitch>& as
 bool AAstronaut::SetDroid_Implementation(const TScriptInterface<ISwitch>& droid)
 {
 
-	if (Other.GetObject() != nullptr) return false;
+	if (Other.GetObject() != nullptr) return false; // is droid set
 
-	if (ADroid* thisOne = Cast<ADroid>(this)) return false;
+	if (ADroid* thisOne = Cast<ADroid>(this)) return false; // is parameter a droid
 
-	if (droid.GetObject()->Implements<USwitch>())
+	if (droid.GetObject()->Implements<USwitch>()) // sets droid
 	{
 		Other = TScriptInterface<ISwitch>(droid.GetObject());
 		return true;
 	}
-	return false;
+	return false; // fallback false return
 }
 
 void AAstronaut::PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	IPickupable* pickup = Cast<IPickupable>(OtherActor);
-	if (pickup == nullptr) return;
+	//checking if overlapped actor is valid
+	if( (OtherActor == nullptr) || (OtherActor == this) || (OtherComp == nullptr)) return;
 
+
+	//casting overlap to pickupable interface
+	IPickupable* pickup = Cast<IPickupable>(OtherActor);
+	if (pickup == nullptr) {
+		return;
+	}
+
+	//checking pickup type
 	PickupType type = pickup->Pickup();
 
 	switch(type) {
-	case SCRAP:
+	case SCRAP: // Overlapped actor is Scrap metal
 		PickupScrap(1);
 		break;
-	case OXYGEN:
+	case OXYGEN: // Overlapped actor is Oxygen containet
 		PickupOxygen(40);
 		break;
 	default:

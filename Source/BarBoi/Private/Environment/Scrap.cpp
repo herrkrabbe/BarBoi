@@ -12,17 +12,25 @@ AScrap::AScrap()
 
 
 	//creating mesh and collision box
-	UBoxComponent* CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisionBox"));
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	//UBoxComponent* CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisionBox"));
+	//Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	
 
 	//setting root component
-	RootComponent = CollisionBox;
+	SetRootComponent(CollisionBox);
+	//Mesh->SetupAttachment(CollisionBox);
 
-	//enable overlap event for picking up
-	CollisionBox->SetGenerateOverlapEvents(true);
+	if (CollisionBox != nullptr) {
+		//enable overlap event for picking up
+		CollisionBox->SetGenerateOverlapEvents(true);
 
-	CollisionBox->SetEnableGravity(false);
+	
+
+		//Setting collision rules
+		//Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		CollisionBox->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	}
+	
 
 }
 
@@ -30,13 +38,14 @@ AScrap::AScrap()
 void AScrap::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 PickupType AScrap::Pickup()
 {
-	Destroy();
-
+	if (!Destroy()) {
+		//giving error message if the scrap object failed to delete
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("FAILED DELETE"));
+	}
 	return type;
 }
 
