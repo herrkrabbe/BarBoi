@@ -20,7 +20,7 @@ void AEnemyAIController::BeginPlay()
 
 void AEnemyAIController::Patrol()
 {
-	if (NavArea)
+	if (NavArea && IsValid(GetPawn()))
 	{
 		// k2 takes the world as the first parameter.
 		// Second searches for a reachable Location for enemy

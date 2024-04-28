@@ -42,7 +42,7 @@ public:
 	returns new HP.
 	returns HP remaining*/
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Damage")
-	float DamageThis(float DamageTaken);
+	void DamageThis(float DamageTaken);
 	
 	/* Set the target for the enemy AI
 	returns true if target is set

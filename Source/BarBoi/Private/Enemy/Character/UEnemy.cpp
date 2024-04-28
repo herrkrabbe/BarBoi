@@ -185,9 +185,9 @@ bool AUEnemy::SetTarget_Implementation(AAstronaut* newTarget)
 	return true;
 }
 
-float AUEnemy::DamageThis_Implementation(float DamageTaken)
+void AUEnemy::DamageThis_Implementation(float DamageTaken)
 {
-	return IEnemy::DamageThis_Implementation(DamageTaken);
+	GetWorld()->DestroyActor(this);
 }
 
 float AUEnemy::DamageTarget_Implementation(float DamageDealt)
