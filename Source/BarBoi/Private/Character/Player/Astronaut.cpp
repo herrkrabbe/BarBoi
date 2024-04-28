@@ -12,6 +12,7 @@
 #include <Character/Player/Weapon/Weapon.h>
 #include <Character/Player/Droid.h>
 #include <Kismet/KismetSystemLibrary.h>
+#include <Environment/Pickupable.h>
 
 
 
@@ -41,9 +42,20 @@ AAstronaut::AAstronaut()
 	AstronautWeapon->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
 	AstronautWeapon->SetOwnerNoSee(false);
 
-
+	//change physics
 	GetCharacterMovement()->bRunPhysicsWithNoController = true;
 	GetCharacterMovement()->GravityScale = 0.f;
+	
+
+	//creating itneraction sphere
+	OverlapSphere = CreateDefaultSubobject<USphereComponent>(TEXT("OverlapSphere"));
+	OverlapSphere->SetupAttachment(GetCapsuleComponent());
+	OverlapSphere->SetGenerateOverlapEvents(true);
+	OverlapSphere->SetSphereRadius(50.f);
+
+	//enable overlap event
+	
+
 }
 
 // Called when the game starts or when spawned
@@ -62,12 +74,17 @@ void AAstronaut::BeginPlay()
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Oxygen is less than 0"));
 	}
 
+	
+
 	//Add Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller)) {
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer())) {
 			Subsystem->AddMappingContext(AstronautMappingContext, 0);
 		}
 	}
+
+	// Add overlap event
+	OverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &AAstronaut::PickupItem);
 	
 }
 
@@ -122,7 +139,6 @@ void AAstronaut::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	DamageThis(DeltaTime);
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Oxygen: %f"), GetOxygen()));
 
 	//Tick Weapon
 	AstronautWeapon->TickWeapon(DeltaTime);
@@ -160,12 +176,27 @@ float AAstronaut::GetOxygenMax()
 	return HPMax;
 }
 
+float AAstronaut::AddOxygen(float amount)
+{
+	if (amount <= 0) return 0.f;
+
+	float overcapped = HP + amount - HPMax;
+
+	HP += amount;
+
+	if (HP > HPMax) {
+		HP = HPMax;
+		return overcapped;
+	}
+	
+	return amount;
+}
+
 bool AAstronaut::DamageThis(float damageDone)
 {
 	float newHP = GetOxygen() - damageDone;
 
 	if (newHP <= 0) { //test if dead
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("PlayerCharacter is dead"));
 
 		APlayerController* PlayerController;
 
@@ -232,14 +263,52 @@ bool AAstronaut::SetAstronaut_Implementation(const TScriptInterface<ISwitch>& as
 bool AAstronaut::SetDroid_Implementation(const TScriptInterface<ISwitch>& droid)
 {
 
-	if (Other.GetObject() != nullptr) return false;
+	if (Other.GetObject() != nullptr) return false; // is droid set
 
-	if (ADroid* thisOne = Cast<ADroid>(this)) return false;
+	if (ADroid* thisOne = Cast<ADroid>(this)) return false; // is parameter a droid
 
-	if (droid.GetObject()->Implements<USwitch>())
+	if (droid.GetObject()->Implements<USwitch>()) // sets droid
 	{
 		Other = TScriptInterface<ISwitch>(droid.GetObject());
 		return true;
 	}
-	return false;
+	return false; // fallback false return
+}
+
+void AAstronaut::PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	//checking if overlapped actor is valid
+	if( (OtherActor == nullptr) || (OtherActor == this) || (OtherComp == nullptr)) return;
+
+
+	//casting overlap to pickupable interface
+	IPickupable* pickup = Cast<IPickupable>(OtherActor);
+	if (pickup == nullptr) {
+		return;
+	}
+
+	//checking pickup type
+	PickupType type = pickup->Pickup();
+
+	switch(type) {
+	case SCRAP: // Overlapped actor is Scrap metal
+		PickupScrap(1);
+		break;
+	case OXYGEN: // Overlapped actor is Oxygen containet
+		PickupOxygen(40);
+		break;
+	default:
+		break;
+	}
+
+}
+
+void AAstronaut::PickupScrap(int amount)
+{
+	Scrap += amount;
+}
+
+void AAstronaut::PickupOxygen(float amount)
+{
+	AddOxygen(amount);
 }

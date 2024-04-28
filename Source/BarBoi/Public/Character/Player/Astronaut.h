@@ -5,14 +5,16 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Switch.h"
-#include "Astronaut.generated.h"
 
+#include <Components/SphereComponent.h>
+#include "Astronaut.generated.h"
 class UInputComponent;
 class USkeletalMeshComponent;
 class UWeapon;
 class UCameraComponent;
 class UInputAction;
 class UInputMappingContext;
+class USphereComponent;
 struct FInputActionValue;
 
 
@@ -27,6 +29,10 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Oxygen", meta = (AllowPrivateAccess = "true"))
 	float HP = 150.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Repair", meta = (AllowPrivateAccess = "true"))
+	int Scrap = 0;
+	 
 
 public:
 
@@ -46,11 +52,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* AstronautMappingContext;
 
-	//Input Actions
-
-	/* Action for Actions. Fire, repair etc. */
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
-	//UInputAction* ActionAction;
+	/* Sphere collision component to register overlapping */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Overlap")
+	USphereComponent* OverlapSphere;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
@@ -90,10 +94,18 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	/* Returns the oxygen or HP the austronaut has remaining*/
+	UFUNCTION(BlueprintCallable, Category = "Oxygen")
 	float GetOxygen();
 
 	/* Returns the maximum oxygen or HP the austronaut can have*/
+	UFUNCTION(BlueprintCallable, Category = "Oxygen")
 	float GetOxygenMax();
+
+	/* Adds oxygen, and applies restraint for max Oxygen. 
+	returns how much oxygen was added. 
+	Negative amounts returns 0*/
+	UFUNCTION(BlueprintCallable, Category = "Oxygen")
+	float AddOxygen(float amount);
 
 	/* Damage done to this character */
 	bool DamageThis(float damageDone);
@@ -109,4 +121,18 @@ public:
 	TScriptInterface<ISwitch> GetOther_Implementation() override;
 	bool SetAstronaut_Implementation(const TScriptInterface<ISwitch>& astronaut) override;
 	bool SetDroid_Implementation(const TScriptInterface<ISwitch>& droid) override;
+
+protected:
+	UFUNCTION()
+	void PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+private:
+	/* function for picking up scrap */
+	UFUNCTION(BlueprintCallable, Category = "Repair", meta = (AllowPrivateAccess = "true"))
+	void PickupScrap(int amount);
+
+	/* function for picking up oxygen pickup */
+	UFUNCTION(BlueprintCallable, Category = "Pickup", meta = (AllowPrivateAccess = "true"))
+	void PickupOxygen(float amount);
+
 };

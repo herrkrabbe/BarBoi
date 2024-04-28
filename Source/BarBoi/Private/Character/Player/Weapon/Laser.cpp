@@ -20,8 +20,6 @@ ALaser::ALaser()
 	//Adding hit event
 	CollisionComp->SetCollisionProfileName("Laser");
 	//CollisionComp->OnComponentHit.AddDynamic(this, &ALaser::OnHit);
-	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &ALaser::OnLaserBeginOverlap);
-
 	
 
 
@@ -33,6 +31,17 @@ ALaser::ALaser()
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->ProjectileGravityScale = 0.f; // disabling gravity
+
+	CollisionComp->OnComponentBeginOverlap.AddDynamic(this, &ALaser::OnLaserBeginOverlap);
+}
+
+void ALaser::BeginPlay()
+{
+	Super::BeginPlay();
+
+
+	//Enable overlap event
+	
 }
 
 void ALaser::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -42,7 +51,6 @@ void ALaser::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveC
 		return; // return is used here for prettier code
 	}
 
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Hit"));
 
 	IEnemy* enemy = Cast<IEnemy>(OtherActor);
 	//applying damage to enemy
