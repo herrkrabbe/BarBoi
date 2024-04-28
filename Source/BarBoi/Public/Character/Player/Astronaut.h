@@ -10,7 +10,7 @@
 #include "Astronaut.generated.h"
 class UInputComponent;
 class USkeletalMeshComponent;
-class UWeapon;
+class ULaserGun;
 class UCameraComponent;
 class UInputAction;
 class UInputMappingContext;
@@ -41,7 +41,7 @@ public:
 
 	/* Weapon for astronaut */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon")
-	UWeapon* AstronautWeapon;
+	ULaserGun* AstronautWeapon;
 
 	/* Camera for astronaut */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Camera", meta = (AllowPrivateAccess = "true"))

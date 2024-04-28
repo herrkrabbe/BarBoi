@@ -9,7 +9,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include <Character/Player/Weapon/Weapon.h>
+#include <Character/Player/Weapon/LaserGun.h>
 #include <Character/Player/Droid.h>
 #include <Kismet/KismetSystemLibrary.h>
 #include <Environment/Pickupable.h>
@@ -36,7 +36,7 @@ AAstronaut::AAstronaut()
 	GetMesh()->SetOwnerNoSee(true);
 
 	//Create Gun Mesh
-	AstronautWeapon = CreateDefaultSubobject<UWeapon>(TEXT("AstronautWeapon"));
+	AstronautWeapon = CreateDefaultSubobject<ULaserGun>(TEXT("AstronautWeapon"));
 	
 	AstronautWeapon->SetupAttachment(GetMesh());
 	AstronautWeapon->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
@@ -50,10 +50,17 @@ AAstronaut::AAstronaut()
 	//creating itneraction sphere
 	OverlapSphere = CreateDefaultSubobject<USphereComponent>(TEXT("OverlapSphere"));
 	OverlapSphere->SetupAttachment(GetCapsuleComponent());
-	OverlapSphere->SetGenerateOverlapEvents(true);
-	OverlapSphere->SetSphereRadius(50.f);
+	OverlapSphere->SetSphereRadius(85.f);
 
 	//enable overlap event
+	OverlapSphere->SetGenerateOverlapEvents(true);
+
+
+	//disable camera collisions
+	OverlapSphere->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	AstronautWeapon->SetCollisionResponseToAllChannels(ECR_Ignore);
 	
 
 }
