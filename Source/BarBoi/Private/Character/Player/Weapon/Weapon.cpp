@@ -52,7 +52,8 @@ void UWeapon::Fire()
 			}
 
 			const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-			const FVector SpawnLocation = GetOwner()->GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+			//const FVector SpawnLocation = GetOwner()->GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
+			const FVector SpawnLocation = GetComponentLocation();
 
 			FString rotationString = SpawnRotation.ToString();
 			FString locationString = SpawnLocation.ToString();
@@ -73,24 +74,36 @@ void UWeapon::Fire()
 
 void UWeapon::Repair()
 {
-
 	// weapon cannot repair while overheated or has recently fired
 	if(FireCooldown != 0 || bIsOverheated) return;
 
+	// get player controller for player camera rotation
+	APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
+	if (PlayerController == nullptr) {
+		return;
+	}
 
+	// Line trace to find repairable object
 	FVector StartTrace = GetComponentLocation();
-	FVector EndTrace = StartTrace + GetComponentRotation().Vector() * 100;
+	FVector EndTrace = StartTrace + PlayerController->PlayerCameraManager->GetCameraRotation().Vector() * 500;
 
+	// tracing parameters
 	FHitResult HitResult;
 	FCollisionQueryParams CollisionsParams;
 	CollisionsParams.AddIgnoredActor(GetOwner());
 	
+	// execute tracing
 	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartTrace, EndTrace, ECC_Visibility, CollisionsParams)) {
+
+		// is traced object Reparable
 		IRepairable* repairable = Cast<IRepairable>(HitResult.GetActor());
 		if (repairable == nullptr) return;
 
-		repairable->Repair();
+		// execute repair
+		RepairPhase phase = repairable->Repair();
 	}
+
+	DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Green, false, 3.0f, 0, 2.0f);
 
 }
 
@@ -131,7 +144,7 @@ bool UWeapon::SetupInput(AAstronaut* character)
 		{
 			// Fire
 			EnhancedInputComponent->BindAction(ActionFire, ETriggerEvent::Triggered, this, &UWeapon::Fire);
-			EnhancedInputComponent->BindAction(ActionRepair, ETriggerEvent::Ongoing, this, &UWeapon::Repair);
+			EnhancedInputComponent->BindAction(ActionRepair, ETriggerEvent::Triggered, this, &UWeapon::Repair);
 		}
 	}
 	return false;
@@ -144,7 +157,6 @@ void UWeapon::FireCooldownTick(float deltaTime)
 	FireCooldown -= deltaTime;
 
 	FString cooldownString = FString::Printf(TEXT("Cooldown: %f"), FireCooldown);
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, cooldownString);
 
 	if (FireCooldown < 0) {
 		FireCooldown = 0;

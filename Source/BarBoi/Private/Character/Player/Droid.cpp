@@ -61,13 +61,11 @@ void ADroid::BeginPlay()
 	
 	//if (APlayerController* PlayerController = Cast<APlayerController>(Controller)) {
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetWorld()->GetFirstPlayerController())) {
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Droid can access controller")));
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer())) {
 			Subsystem->AddMappingContext(DroidMappingContext, 1);
 		}
 	}
 	else {
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Droid can NOT access controller")));
 	}
 	
 }
@@ -95,7 +93,6 @@ void ADroid::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	}
 	else
 	{
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("INPUT SETUP FAILED")));
 		//insert error here
 	}
 
@@ -109,7 +106,6 @@ void ADroid::Move(const FInputActionValue& Value)
 	if (Controller != nullptr)
 	{
 		GetCharacterMovement()->SetMovementMode(MOVE_Flying);
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, MovementVector.ToString());
 
 		// find out which way is forward
 		const FRotator Rotation = Controller->GetControlRotation();
@@ -121,14 +117,12 @@ void ADroid::Move(const FInputActionValue& Value)
 		
 		FString ForwardString = "Forward: ";
 		ForwardString.Append(ForwardDirection.ToString());
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ForwardString);
 
 		// get right vector 
 		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
 		FString RightString = "Right: ";
 		RightString.Append(RightDirection.ToString());
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, RightString);
 
 
 
@@ -138,9 +132,7 @@ void ADroid::Move(const FInputActionValue& Value)
 
 		FString UpString = "Up: ";
 		UpString.Append(UpDirection.ToString());
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, UpString);
 
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, GetCharacterMovement()->GetMovementName());
 
 		AddMovementInput(UpDirection, MovementVector.Z);
 		AddMovementInput(ForwardDirection, MovementVector.Y);
@@ -168,7 +160,7 @@ void ADroid::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 	else {
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("CANNOT LOOK")));
+
 	}
 }
 
@@ -197,10 +189,8 @@ TScriptInterface<ISwitch> ADroid::GetOther_Implementation()
 
 bool ADroid::SetAstronaut_Implementation(const TScriptInterface<ISwitch>& astronaut)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Setting Astronaut in Droid")));
 
 	if (Other.GetObject() != nullptr) {
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Other is not null")));
 		return false;
 	}
 

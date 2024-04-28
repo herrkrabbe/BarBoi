@@ -139,7 +139,6 @@ void AAstronaut::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	DamageThis(DeltaTime);
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Oxygen: %f"), GetOxygen()));
 
 	//Tick Weapon
 	AstronautWeapon->TickWeapon(DeltaTime);
@@ -198,7 +197,6 @@ bool AAstronaut::DamageThis(float damageDone)
 	float newHP = GetOxygen() - damageDone;
 
 	if (newHP <= 0) { //test if dead
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("PlayerCharacter is dead"));
 
 		APlayerController* PlayerController;
 

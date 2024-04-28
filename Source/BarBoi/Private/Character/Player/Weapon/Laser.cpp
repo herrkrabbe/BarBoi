@@ -51,7 +51,6 @@ void ALaser::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveC
 		return; // return is used here for prettier code
 	}
 
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Hit"));
 
 	IEnemy* enemy = Cast<IEnemy>(OtherActor);
 	//applying damage to enemy
