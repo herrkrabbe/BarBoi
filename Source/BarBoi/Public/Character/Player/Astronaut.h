@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Switch.h"
+#include "Weapon/Weapon.h"
 
 #include <Components/SphereComponent.h>
 #include "Astronaut.generated.h"
@@ -29,19 +30,20 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Oxygen", meta = (AllowPrivateAccess = "true"))
 	float HP = 150.f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Repair", meta = (AllowPrivateAccess = "true"))
-	int Scrap = 0;
 	 
-
 public:
 
 	//Components
 	//Note that Character already includes a SkeletalMeshComponent: Mesh
 
 	/* Weapon for astronaut */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon")
-	ULaserGun* AstronautWeapon;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon")
+	//ULaserGun* AstronautWeapon;
+
+	/* Weapon for astronaut */
+	UPROPERTY(BlueprintReadOnly, Category = "Weapon")
+	TScriptInterface<IWeapon> AstronautWeapon;
+
 
 	/* Camera for astronaut */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Camera", meta = (AllowPrivateAccess = "true"))

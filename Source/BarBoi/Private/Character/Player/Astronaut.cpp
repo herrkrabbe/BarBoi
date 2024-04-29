@@ -35,12 +35,14 @@ AAstronaut::AAstronaut()
 	//Hide Astronaut Mesh Component
 	GetMesh()->SetOwnerNoSee(true);
 
-	//Create Gun Mesh
-	AstronautWeapon = CreateDefaultSubobject<ULaserGun>(TEXT("AstronautWeapon"));
+	//Create Weapon
+	ULaserGun* weapon = CreateDefaultSubobject<ULaserGun>(TEXT("AstronautWeapon"));
+	AstronautWeapon = TScriptInterface<IWeapon>(weapon);
+	//AstronautWeapon = CreateDefaultSubobject<ULaserGun>(TEXT("AstronautWeapon"));
 	
-	AstronautWeapon->SetupAttachment(GetMesh());
-	AstronautWeapon->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
-	AstronautWeapon->SetOwnerNoSee(false);
+	weapon->SetupAttachment(GetMesh());
+	weapon->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
+	weapon->SetOwnerNoSee(false);
 
 	//change physics
 	GetCharacterMovement()->bRunPhysicsWithNoController = true;
@@ -60,7 +62,6 @@ AAstronaut::AAstronaut()
 	OverlapSphere->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
-	AstronautWeapon->SetCollisionResponseToAllChannels(ECR_Ignore);
 	
 
 }

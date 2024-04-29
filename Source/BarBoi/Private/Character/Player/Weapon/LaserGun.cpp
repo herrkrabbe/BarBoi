@@ -11,12 +11,7 @@
 
 ULaserGun::ULaserGun()
 {
-}
-
-ULaserGun::ULaserGun(AAstronaut* character)
-{
-	//SetupInput(character);
-
+	SetCollisionResponseToAllChannels(ECR_Ignore);
 }
 
 void ULaserGun::TickWeapon(float deltaTime)
