@@ -9,7 +9,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include <Character/Player/Weapon/Weapon.h>
+#include <Character/Player/Weapon/LaserGun.h>
 #include <Character/Player/Droid.h>
 #include <Kismet/KismetSystemLibrary.h>
 #include <Environment/Pickupable.h>
@@ -35,12 +35,14 @@ AAstronaut::AAstronaut()
 	//Hide Astronaut Mesh Component
 	GetMesh()->SetOwnerNoSee(true);
 
-	//Create Gun Mesh
-	AstronautWeapon = CreateDefaultSubobject<UWeapon>(TEXT("AstronautWeapon"));
+	//Create Weapon
+	ULaserGun* weapon = CreateDefaultSubobject<ULaserGun>(TEXT("AstronautWeapon"));
+	AstronautWeapon = TScriptInterface<IWeapon>(weapon);
+	//AstronautWeapon = CreateDefaultSubobject<ULaserGun>(TEXT("AstronautWeapon"));
 	
-	AstronautWeapon->SetupAttachment(GetMesh());
-	AstronautWeapon->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
-	AstronautWeapon->SetOwnerNoSee(false);
+	weapon->SetupAttachment(GetMesh());
+	weapon->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
+	weapon->SetOwnerNoSee(false);
 
 	//change physics
 	GetCharacterMovement()->bRunPhysicsWithNoController = true;
@@ -50,10 +52,16 @@ AAstronaut::AAstronaut()
 	//creating itneraction sphere
 	OverlapSphere = CreateDefaultSubobject<USphereComponent>(TEXT("OverlapSphere"));
 	OverlapSphere->SetupAttachment(GetCapsuleComponent());
-	OverlapSphere->SetGenerateOverlapEvents(true);
-	OverlapSphere->SetSphereRadius(50.f);
+	OverlapSphere->SetSphereRadius(85.f);
 
 	//enable overlap event
+	OverlapSphere->SetGenerateOverlapEvents(true);
+
+
+	//disable camera collisions
+	OverlapSphere->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetMesh()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
 	
 
 }
@@ -100,6 +108,16 @@ void AAstronaut::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void AAstronaut::Main()
+{
+	AstronautWeapon->Main();
+}
+
+void AAstronaut::Secondary()
+{
+	AstronautWeapon->Secondary();
 }
 
 FVector AAstronaut::VectorToDroid()
@@ -157,8 +175,10 @@ void AAstronaut::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	{
 		// Looking
 		EnhancedInputComponent->BindAction(ActionLook, ETriggerEvent::Triggered, this, &AAstronaut::Look);
+		EnhancedInputComponent->BindAction(ActionMain, ETriggerEvent::Triggered, this, &AAstronaut::Main);
+		EnhancedInputComponent->BindAction(ActionSecondary, ETriggerEvent::Triggered, this, &AAstronaut::Secondary);
 
-		AstronautWeapon->SetupInput(this);
+		//AstronautWeapon->SetupInput(this);
 	}
 	else
 	{
@@ -224,12 +244,22 @@ bool AAstronaut::DamageThis(float damageDone)
 
 float AAstronaut::GetAmmo()
 {
-	return AstronautWeapon->GetHeat();
+	return AstronautWeapon->GetAmmo();
 }
 
 float AAstronaut::GetAmmoMax()
 {
-	return AstronautWeapon->GetHeatMax();
+	return AstronautWeapon->GetAmmoMax();
+}
+
+bool AAstronaut::CanFire()
+{
+	return AstronautWeapon->CanFire();
+}
+
+int AAstronaut::GetSecondaryRemaining()
+{
+	return AstronautWeapon->GetSecondaryRemaining();
 }
 
 TScriptInterface<ISwitch> AAstronaut::GetDroid_Implementation()
@@ -305,7 +335,9 @@ void AAstronaut::PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherAc
 
 void AAstronaut::PickupScrap(int amount)
 {
-	Scrap += amount;
+	for (int i = 0; i < amount; i++) {
+		AstronautWeapon->AddSecondaryRemaining();
+	}
 }
 
 void AAstronaut::PickupOxygen(float amount)

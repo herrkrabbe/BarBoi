@@ -3,132 +3,57 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/MeshComponent.h"
-#include "Character/Player/Astronaut.h"
-#include "Character/Player/Weapon/Laser.h"
+#include "UObject/Interface.h"
 #include "Weapon.generated.h"
 
-class AAstronaut;
-class ALaser;
-/**
- * 
- */
-UCLASS()
-class BARBOI_API UWeapon : public UMeshComponent
+// This class does not need to be modified.
+UINTERFACE(MinimalAPI)
+class UWeapon : public UInterface
 {
 	GENERATED_BODY()
-	
+};
+
+/**
+ * Interface for weapons.
+ * A weapon has a main action Main() and a secondary action Secondary().
+ * The weapon also has a counter for how many times the secondary action can be used successfully.
+ */
+class BARBOI_API IWeapon
+{
+	GENERATED_BODY()
+
+	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	/* Projectile class to spawn */
-	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-	TSubclassOf<class ALaser> ProjectileClass;
+	/* Main action of the weapon.
+	returns true if action was successful and false otehrwise*/
+	virtual bool Main() = 0;
 
-	/* Default Constructor for weapon. If you use this constructor you must then SetupInput*/
-	UWeapon();
+	/* Secondary action of the weapon.
+	returns true if action was complete and successful
+	and returns false if action was not completed*/
+	virtual bool Secondary() = 0;
 
-	/* Constructor for weapon*/
-	UWeapon(AAstronaut* character);
+	/* Get secondary actions remaining.
+	It is the weapons responsibility to check if it can perform any secondary actions*/
+	virtual int GetSecondaryRemaining();
 
-	/* Function called to tick weapon*/
-	void TickWeapon(float deltaTime);
+	/* Add 1 secondary action use to the weapon
+	returns false only if the weapon has reached its maximum secondary actions remaining*/
+	virtual bool AddSecondaryRemaining();
 
-	
+	/* Returns the maximum amount of ammo the weapon can hold */
+	virtual float GetAmmoMax() = 0;
 
-	/* Input Mapping Context used for the weapon */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputMappingContext* WeaponMappingContext;
+	/* Returns the amount of ammo remaining */
+	virtual float GetAmmo() = 0;
 
-	/** Gun muzzle's offset from the characters location 
-	From FPS Template*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	FVector MuzzleOffset;
+	/* Returns if the weapon can fire */
+	virtual bool CanFire() = 0;
 
-	/** Fire Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* ActionFire;
+	/* Tick the weapon */
+	virtual void TickWeapon(float deltaTime) = 0;
 
-	/** Fire Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* ActionRepair;
-
-	/** Make the weapon Fire a Projectile */
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void Fire();
-
-	/* Make weapon repair ship */
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void Repair();
-
-	/* Get Heat value of weapon */
-	UFUNCTION(BlueprintCallable, Category = "Heat")
-	float GetHeat();
-
-	/* Get max Heat value of weapon */
-	UFUNCTION(BlueprintCallable, Category = "Heat")
-	float GetHeatMax();
-
-	/* Function to cool gun.
-	returns heat removed*/
-	UFUNCTION(BlueprintCallable, Category = "Heat")
-	float Cooling(float deltaTime);
-
-	/* Function called to setup input of weapon*/
-	UFUNCTION(BlueprintCallable, Category = "Input")
-	bool SetupInput(AAstronaut* character);
-
-	
-
-private:
-	/* Float tracking the heat of the weapon. heat starts at 0 */
-	UPROPERTY(EditAnywhere, Category="Heat", meta = (AllowPrivateAccess = "true"))
-	float Heat = 0;
-
-	/* Float tracking the maximum heat of the weapon. starts at 300 */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Heat", meta = (AllowPrivateAccess = "true"))
-	float HeatCapacity = 300;
-
-	/* Heat removed per second */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Heat", meta = (AllowPrivateAccess = "true"))
-	float CoolingRate = -150;
-
-	/* Heat added per shot */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Heat", meta = (AllowPrivateAccess = "true"))
-	float HeatPerShot = 62.5;
-
-	/* Time before weapon can shoot again */
-	UPROPERTY(BlueprintReadWrite, Category = "Fire", meta = (AllowPrivateAccess = "true"))
-	float FireCooldown = 0;
-
-	/* Fire rate of weapon */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fire", meta = (AllowPrivateAccess = "true"))
-	float FireRate = 0.25;
-
-	/* Function to tick down fire cooldown */
-	void FireCooldownTick(float deltaTime);
-
-	/* Bool tracking if the weapon is overheated. starts false */
-	UPROPERTY(BlueprintReadWrite, Category = "Heat", meta = (AllowPrivateAccess = "true"))
-	bool bIsOverheated = false;
-
-	/* Set Heat value of weapon */
-	UFUNCTION(BlueprintCallable, Category = "Heat", meta = (AllowPrivateAccess = "true"))
-	void SetHeat(float newHeat);
-
-	/* Add Heat value to weapon */
-	UFUNCTION(BlueprintCallable, Category = "Heat", meta = (AllowPrivateAccess = "true"))
-	void AddHeat(float deltaHeat);
-
-	/* Function to apply heat floor and roof */
-	void ApplyHeatLimits();
-	
 protected:
-	/* Reference to character holding component */
-	AAstronaut* Character;
-
-	/** Ends gameplay for this component.
-	From FPS Template*/
-	UFUNCTION()
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-
-
+	/* Number successful of secondary actions remaining*/
+	int SecondaryRemaining = 0;
 };
