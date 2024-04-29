@@ -6,6 +6,7 @@
 #include "Components/MeshComponent.h"
 #include "Character/Player/Astronaut.h"
 #include "Character/Player/Weapon/Laser.h"
+#include "Character/Player/Weapon/Weapon.h"
 #include "LaserGun.generated.h"
 
 class AAstronaut;
@@ -14,7 +15,7 @@ class ALaser;
  * 
  */
 UCLASS()
-class BARBOI_API ULaserGun : public UMeshComponent
+class BARBOI_API ULaserGun : public UMeshComponent, public IWeapon
 {
 	GENERATED_BODY()
 	
@@ -29,14 +30,13 @@ public:
 	/* Constructor for weapon*/
 	ULaserGun(AAstronaut* character);
 
-	/* Function called to tick weapon*/
-	void TickWeapon(float deltaTime);
+	
 
 	
 
 	/* Input Mapping Context used for the weapon */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputMappingContext* WeaponMappingContext;
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	//class UInputMappingContext* WeaponMappingContext;
 
 	/** Gun muzzle's offset from the characters location 
 	From FPS Template*/
@@ -44,20 +44,20 @@ public:
 	FVector MuzzleOffset;
 
 	/** Fire Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* ActionFire;
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	//class UInputAction* ActionFire;
 
 	/** Fire Input Action */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* ActionRepair;
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	//class UInputAction* ActionRepair;
 
 	/** Make the weapon Fire a Projectile */
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void Fire();
+	bool Fire();
 
 	/* Make weapon repair ship */
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void Repair();
+	bool Repair();
 
 	/* Get Heat value of weapon */
 	UFUNCTION(BlueprintCallable, Category = "Heat")
@@ -73,8 +73,8 @@ public:
 	float Cooling(float deltaTime);
 
 	/* Function called to setup input of weapon*/
-	UFUNCTION(BlueprintCallable, Category = "Input")
-	bool SetupInput(AAstronaut* character);
+	//UFUNCTION(BlueprintCallable, Category = "Input")
+	//bool SetupInput(AAstronaut* character);
 
 	
 
@@ -127,8 +127,21 @@ protected:
 
 	/** Ends gameplay for this component.
 	From FPS Template*/
-	UFUNCTION()
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	//UFUNCTION()
+	//virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
+public:
 
+	// Inherited via IWeapon
+	virtual bool Main() override;
+
+	virtual bool Secondary() override;
+
+	virtual float GetAmmoMax() override;
+
+	virtual float GetAmmo() override;
+
+	virtual bool CanFire() override;
+
+	void TickWeapon(float deltaTime);
 };

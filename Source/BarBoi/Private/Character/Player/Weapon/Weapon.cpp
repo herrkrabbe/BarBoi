@@ -5,10 +5,6 @@
 
 // Add default functionality here for any IWeapon functions that are not pure virtual.
 
-bool IWeapon::Secondary()
-{
-	return GetSecondaryRemaining()>0;
-}
 
 int IWeapon::GetSecondaryRemaining()
 {

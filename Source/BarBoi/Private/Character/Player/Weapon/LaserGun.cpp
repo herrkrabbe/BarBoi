@@ -15,7 +15,7 @@ ULaserGun::ULaserGun()
 
 ULaserGun::ULaserGun(AAstronaut* character)
 {
-	SetupInput(character);
+	//SetupInput(character);
 
 }
 
@@ -23,22 +23,22 @@ void ULaserGun::TickWeapon(float deltaTime)
 {
 	Cooling(deltaTime);
 	FireCooldownTick(deltaTime);
-
 }
 
-void ULaserGun::Fire()
+bool ULaserGun::Fire()
 {
 
-
+	/*
 	// This block is taken from FPS template
 	if (Character == nullptr || Character->GetController() == nullptr)
 	{
-		return;
+		return false;
 	}
+	*/
 
 	// weapon cannot fire while overheated or has recently fired
 	if (FireCooldown != 0 || bIsOverheated) {
-		return;
+		return false;
 	}
 	// Try and fire a projectile. This block is taken from FPS template
 	if (ProjectileClass != nullptr)
@@ -46,9 +46,9 @@ void ULaserGun::Fire()
 		UWorld* const World = GetWorld();
 		if (World != nullptr)
 		{
-			APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
+			APlayerController* PlayerController = Cast<APlayerController>(GetWorld()->GetFirstPlayerController());
 			if (PlayerController == nullptr) {
-				return;
+				return false;
 			}
 
 			const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
@@ -68,19 +68,21 @@ void ULaserGun::Fire()
 			// Setting cooldown and adding heat
 			FireCooldown = FireRate;
 			AddHeat(HeatPerShot);
+			return true;
 		}
 	}
+	return false;
 }
 
-void ULaserGun::Repair()
+bool ULaserGun::Repair()
 {
-	// weapon cannot repair while overheated or has recently fired
-	if(FireCooldown != 0 || bIsOverheated) return;
+	// weapon cannot repair while overheated or has recently fired or has no secondary actions remaining
+	if(FireCooldown != 0 || bIsOverheated || SecondaryRemaining<1) return false;
 
 	// get player controller for player camera rotation
 	APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
 	if (PlayerController == nullptr) {
-		return;
+		return false;
 	}
 
 	// Line trace to find repairable object
@@ -91,20 +93,36 @@ void ULaserGun::Repair()
 	FHitResult HitResult;
 	FCollisionQueryParams CollisionsParams;
 	CollisionsParams.AddIgnoredActor(GetOwner());
-	
+
+
+	DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Green, false, 3.0f, 0, 2.0f);
+
+
 	// execute tracing
 	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartTrace, EndTrace, ECC_Visibility, CollisionsParams)) {
 
 		// is traced object Reparable
 		IRepairable* repairable = Cast<IRepairable>(HitResult.GetActor());
-		if (repairable == nullptr) return;
+		if (repairable == nullptr) return false;
 
 		// execute repair
 		RepairPhase phase = repairable->Repair();
+
+		bool bConsumesSecondary = false;
+
+		switch (phase) {
+		case REPAIR_COMPLETED: // consumes secondary available
+			bConsumesSecondary = true;
+			SecondaryRemaining -= 1;
+			break;
+		}
+
+
+		return bConsumesSecondary;
 	}
 
-	DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Green, false, 3.0f, 0, 2.0f);
-
+	
+	return false;
 }
 
 float ULaserGun::GetHeat()
@@ -128,6 +146,7 @@ float ULaserGun::Cooling(float deltaTime)
 	return heatRemoved;
 }
 
+/*
 bool ULaserGun::SetupInput(AAstronaut* character)
 {
 	if (APlayerController* PlayerController = Cast<APlayerController>(character->GetController()))
@@ -149,6 +168,7 @@ bool ULaserGun::SetupInput(AAstronaut* character)
 	}
 	return false;
 }
+*/
 
 void ULaserGun::FireCooldownTick(float deltaTime)
 {
@@ -198,6 +218,7 @@ void ULaserGun::ApplyHeatLimits()
 	}
 }
 
+/*
 void ULaserGun::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	if (Character == nullptr)
@@ -212,4 +233,30 @@ void ULaserGun::EndPlay(const EEndPlayReason::Type EndPlayReason)
 			Subsystem->RemoveMappingContext(WeaponMappingContext);
 		}
 	}
+}
+*/
+
+bool ULaserGun::Main()
+{
+	return Fire();
+}
+
+bool ULaserGun::Secondary()
+{
+	return Repair();
+}
+
+float ULaserGun::GetAmmoMax()
+{
+	return GetHeatMax();
+}
+
+float ULaserGun::GetAmmo()
+{
+	return GetHeat();
+}
+
+bool ULaserGun::CanFire()
+{
+	return !bIsOverheated;
 }

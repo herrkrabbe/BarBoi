@@ -60,6 +60,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta = (AllowPrivateAccess = "true"))
 	UInputAction* ActionLook;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* ActionMain;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* ActionSecondary;
+
 public:
 	// Sets default values for this character's properties
 	AAstronaut();
@@ -70,6 +76,12 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+
+	/* Calls the Main action of the Astronaut's weapon */
+	void Main();
+
+	/* Calls the Secondary action of the Astronaut's weapon */
+	void Secondary();
 
 	/* Get the vector from Astronaut to Droid
 	returns a zero vector if Drone is not set*/
@@ -111,10 +123,20 @@ public:
 	bool DamageThis(float damageDone);
 
 	/* Get ammunition of gun */
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	float GetAmmo();
 
 	/* Get maximum ammunition of gun */
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	float GetAmmoMax();
+
+	/* Can the gun fire? */
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	bool CanFire();
+
+	/* Get secondary actions left of the weapon */
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	int GetSecondaryRemaining();
 
 	TScriptInterface<ISwitch> GetDroid_Implementation() override;
 	TScriptInterface<ISwitch> GetAstronaut_Implementation() override;
@@ -123,6 +145,7 @@ public:
 	bool SetDroid_Implementation(const TScriptInterface<ISwitch>& droid) override;
 
 protected:
+	/* Function for picking up a general pickupable actor*/
 	UFUNCTION()
 	void PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
@@ -134,5 +157,6 @@ private:
 	/* function for picking up oxygen pickup */
 	UFUNCTION(BlueprintCallable, Category = "Pickup", meta = (AllowPrivateAccess = "true"))
 	void PickupOxygen(float amount);
+
 
 };

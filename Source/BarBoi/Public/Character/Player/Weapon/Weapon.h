@@ -31,7 +31,7 @@ public:
 	/* Secondary action of the weapon.
 	returns true if action was complete and successful
 	and returns false if action was not completed*/
-	virtual bool Secondary();
+	virtual bool Secondary() = 0;
 
 	/* Get secondary actions remaining.
 	It is the weapons responsibility to check if it can perform any secondary actions*/
@@ -49,6 +49,9 @@ public:
 
 	/* Returns if the weapon can fire */
 	virtual bool CanFire() = 0;
+
+	/* Tick the weapon */
+	virtual void TickWeapon(float deltaTime) = 0;
 
 protected:
 	/* Number successful of secondary actions remaining*/

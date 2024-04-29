@@ -109,6 +109,16 @@ void AAstronaut::Look(const FInputActionValue& Value)
 	}
 }
 
+void AAstronaut::Main()
+{
+	AstronautWeapon->Main();
+}
+
+void AAstronaut::Secondary()
+{
+	AstronautWeapon->Secondary();
+}
+
 FVector AAstronaut::VectorToDroid()
 {
 	if (GetDroid_Implementation().GetObject() == nullptr) return FVector::Zero(); // Is droid set?
@@ -164,8 +174,10 @@ void AAstronaut::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 	{
 		// Looking
 		EnhancedInputComponent->BindAction(ActionLook, ETriggerEvent::Triggered, this, &AAstronaut::Look);
+		EnhancedInputComponent->BindAction(ActionMain, ETriggerEvent::Triggered, this, &AAstronaut::Main);
+		EnhancedInputComponent->BindAction(ActionSecondary, ETriggerEvent::Triggered, this, &AAstronaut::Secondary);
 
-		AstronautWeapon->SetupInput(this);
+		//AstronautWeapon->SetupInput(this);
 	}
 	else
 	{
@@ -231,12 +243,22 @@ bool AAstronaut::DamageThis(float damageDone)
 
 float AAstronaut::GetAmmo()
 {
-	return AstronautWeapon->GetHeat();
+	return AstronautWeapon->GetAmmo();
 }
 
 float AAstronaut::GetAmmoMax()
 {
-	return AstronautWeapon->GetHeatMax();
+	return AstronautWeapon->GetAmmoMax();
+}
+
+bool AAstronaut::CanFire()
+{
+	return AstronautWeapon->CanFire();
+}
+
+int AAstronaut::GetSecondaryRemaining()
+{
+	return AstronautWeapon->GetSecondaryRemaining();
 }
 
 TScriptInterface<ISwitch> AAstronaut::GetDroid_Implementation()
@@ -312,7 +334,9 @@ void AAstronaut::PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherAc
 
 void AAstronaut::PickupScrap(int amount)
 {
-	Scrap += amount;
+	for (int i = 0; i < amount; i++) {
+		AstronautWeapon->AddSecondaryRemaining();
+	}
 }
 
 void AAstronaut::PickupOxygen(float amount)
