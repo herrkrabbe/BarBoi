@@ -1,46 +1,42 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Environment/Scrap.h"
+#include "Environment/Salvage.h"
 #include <Components/BoxComponent.h>
 
 // Sets default values
-AScrap::AScrap()
+ASalvage::ASalvage()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
 
-	//creating mesh and collision box
-	//UBoxComponent* CollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisionBox"));
-	//Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	
+	type = PickupType::SALVAGE;
 
 	//setting root component
-	SetRootComponent(CollisionBox);
-	//Mesh->SetupAttachment(CollisionBox);
+	OverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapBox"));
+	RootComponent = OverlapBox;
 
-	if (CollisionBox != nullptr) {
+	if (OverlapBox != nullptr) {
 		//enable overlap event for picking up
-		CollisionBox->SetGenerateOverlapEvents(true);
+		OverlapBox->SetGenerateOverlapEvents(true);
 
 	
 
 		//Setting collision rules
-		//Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		CollisionBox->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+		OverlapBox->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	}
 	
 
 }
 
 // Called when the game starts or when spawned
-void AScrap::BeginPlay()
+void ASalvage::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-PickupType AScrap::Pickup()
+PickupType ASalvage::Pickup()
 {
 	if (!Destroy()) {
 		//giving error message if the scrap object failed to delete

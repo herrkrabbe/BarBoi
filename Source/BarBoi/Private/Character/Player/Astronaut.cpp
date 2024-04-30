@@ -321,8 +321,8 @@ void AAstronaut::PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherAc
 	PickupType type = pickup->Pickup();
 
 	switch(type) {
-	case SCRAP: // Overlapped actor is Scrap metal
-		PickupScrap(1);
+	case SALVAGE: // Overlapped actor is Scrap metal
+		PickupSalvage(1);
 		break;
 	case OXYGEN: // Overlapped actor is Oxygen containet
 		PickupOxygen(40);
@@ -333,7 +333,7 @@ void AAstronaut::PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherAc
 
 }
 
-void AAstronaut::PickupScrap(int amount)
+void AAstronaut::PickupSalvage(int amount)
 {
 	for (int i = 0; i < amount; i++) {
 		AstronautWeapon->AddSecondaryRemaining();

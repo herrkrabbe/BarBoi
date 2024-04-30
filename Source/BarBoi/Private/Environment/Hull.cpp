@@ -8,7 +8,6 @@ AHull::AHull()
 {
 	// create components
 	OverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapBox"));
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = OverlapBox;
 
 	

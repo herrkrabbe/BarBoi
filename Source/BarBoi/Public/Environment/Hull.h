@@ -14,7 +14,7 @@ class BARBOI_API AHull : public AActor, public IRepairable
 {
 	GENERATED_BODY()
 	
-	float progressRemaining = 5;
+	float progressRemaining = 5.0f;
 	
 public:	
 	// Sets default values for this actor's properties
@@ -22,9 +22,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Overlap")
 	UBoxComponent* OverlapBox;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
-	UStaticMeshComponent* Mesh;
 
 protected:
 	// Called when the game starts or when spawned

@@ -6,26 +6,26 @@
 #include "GameFramework/Actor.h"
 
 #include "Pickupable.h"
-#include "Scrap.generated.h"
+#include "Salvage.generated.h"
 
 class UBoxComponent;
 
 
-/* AScrap is a class representing scrap the player can pick up.
+/* ASalvage is a class representing scrap the player can pick up.
 the mesh and collision is implemented in Blueprints*/
 UCLASS()
-class BARBOI_API AScrap : public AActor, public IPickupable
+class BARBOI_API ASalvage : public AActor, public IPickupable
 {
 	GENERATED_BODY()
 
-	PickupType type = PickupType::SCRAP;
+	
 	
 public:	
 	// Sets default values for this actor's properties
-	AScrap();
+	ASalvage();
 
 	UPROPERTY(VisibleAnywhere, Category = "Overlap")
-	UBoxComponent* CollisionBox;
+	UBoxComponent* OverlapBox;
 
 	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
 	//UStaticMeshComponent* Mesh;
