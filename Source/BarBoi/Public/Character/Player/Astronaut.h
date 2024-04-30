@@ -152,9 +152,9 @@ protected:
 	void PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 private:
-	/* function for picking up scrap */
+	/* function for picking up salvage */
 	UFUNCTION(BlueprintCallable, Category = "Repair", meta = (AllowPrivateAccess = "true"))
-	void PickupScrap(int amount);
+	void PickupSalvage(int amount);
 
 	/* function for picking up oxygen pickup */
 	UFUNCTION(BlueprintCallable, Category = "Pickup", meta = (AllowPrivateAccess = "true"))

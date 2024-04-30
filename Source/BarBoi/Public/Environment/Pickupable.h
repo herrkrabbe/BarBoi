@@ -8,7 +8,7 @@
 
 enum PickupType {
 	NONE = 0,
-	SCRAP = 1,
+	SALVAGE = 1,
 	OXYGEN = 2,
 	AMMO = 3
 };
@@ -27,6 +27,9 @@ class BARBOI_API IPickupable
 {
 	GENERATED_BODY()
 
+protected:
+	/* Type of pickup. Is set by children */
+	PickupType type = NONE;
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
