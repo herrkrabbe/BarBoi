@@ -44,6 +44,8 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Weapon")
 	TScriptInterface<IWeapon> AstronautWeapon;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+	UStaticMeshComponent* WeaponMesh;
 
 	/* Camera for astronaut */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Camera", meta = (AllowPrivateAccess = "true"))

@@ -21,14 +21,12 @@ class BARBOI_API ULaserGun : public UMeshComponent, public IWeapon
 	
 public:
 	/* Projectile class to spawn */
-	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+	UPROPERTY(EditDefaultsOnly, Category = "Projectile")
 	TSubclassOf<class ALaser> ProjectileClass;
 
 	/* Default Constructor for weapon. If you use this constructor you must then SetupInput*/
 	ULaserGun();
 
-	/* Constructor for weapon*/
-	ULaserGun(AAstronaut* character);
 
 	
 
@@ -125,6 +123,7 @@ protected:
 	/* Reference to character holding component */
 	AAstronaut* Character;
 
+	virtual void BeginPlay() override;
 	/** Ends gameplay for this component.
 	From FPS Template*/
 	//UFUNCTION()

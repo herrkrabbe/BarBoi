@@ -58,7 +58,7 @@ void ALaser::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveC
 
 		IEnemy::Execute_DamageThis(OtherActor, Damage);
 		
-		//Destroy();
+		Destroy();
 	}
 	else if (enemy != nullptr) { //fallback method if previous if statement does not work for C++
 		enemy->DamageTarget_Implementation(Damage);

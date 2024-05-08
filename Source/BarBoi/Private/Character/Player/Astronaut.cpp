@@ -36,11 +36,13 @@ AAstronaut::AAstronaut()
 	GetMesh()->SetOwnerNoSee(true);
 
 	//Create Weapon
+	WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
 	ULaserGun* weapon = CreateDefaultSubobject<ULaserGun>(TEXT("AstronautWeapon"));
 	AstronautWeapon = TScriptInterface<IWeapon>(weapon);
 	//AstronautWeapon = CreateDefaultSubobject<ULaserGun>(TEXT("AstronautWeapon"));
 	
-	weapon->SetupAttachment(GetMesh());
+	WeaponMesh->SetupAttachment(GetMesh());
+	weapon->SetupAttachment(WeaponMesh);
 	weapon->SetRelativeLocation(FVector(0.f, 0.f, -20.f));
 	weapon->SetOwnerNoSee(false);
 
@@ -112,6 +114,7 @@ void AAstronaut::Look(const FInputActionValue& Value)
 
 void AAstronaut::Main()
 {
+	
 	AstronautWeapon->Main();
 }
 
