@@ -12,6 +12,14 @@
 ULaserGun::ULaserGun()
 {
 	SetCollisionResponseToAllChannels(ECR_Ignore);
+
+	static ConstructorHelpers::FClassFinder<ALaser> ProjectileFile(TEXT("/Game/Group_11/Blueprints/BP_Laser.BP_Laser_C"));
+	
+	if (ProjectileFile.Class != nullptr) {
+		ProjectileClass = ProjectileFile.Class;
+		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Projectile Set"));
+	}
+		
 }
 
 void ULaserGun::TickWeapon(float deltaTime)
@@ -33,7 +41,9 @@ bool ULaserGun::Fire()
 
 	// weapon cannot fire while overheated or has recently fired
 	if (FireCooldown != 0 || bIsOverheated) {
+		
 		return false;
+
 	}
 	// Try and fire a projectile. This block is taken from FPS template
 	if (ProjectileClass != nullptr)
@@ -59,7 +69,7 @@ bool ULaserGun::Fire()
 
 			// Spawn the projectile at the muzzle
 			World->SpawnActor<ALaser>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Firing"));
 			// Setting cooldown and adding heat
 			FireCooldown = FireRate;
 			AddHeat(HeatPerShot);
@@ -213,6 +223,35 @@ void ULaserGun::ApplyHeatLimits()
 	}
 }
 
+void ULaserGun::BeginPlay()
+{
+	Super::BeginPlay();
+
+	//UObject* SpawnActor = Cast<UObject>(StaticLoadObject(UObject::StaticClass(), NULL, TEXT(" / Game / Group_11 / Blueprints / BP_Laser.BP_Laser")));
+	//
+	//UBlueprint* GeneratedBP = Cast<UBlueprint>(SpawnActor);
+	//if (!SpawnActor)
+	//{
+	//	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("CANT FIND OBJECT TO SPAWN")));
+	//	return;
+	//}
+	//
+	//UClass* SpawnClass = SpawnActor->StaticClass();
+	//if (SpawnClass == NULL)
+	//{
+	//	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("CLASS == NULL")));
+	//	return;
+	//}
+	//
+	//ProjectileClass->
+	//
+	//UWorld* World = GetWorld();
+	//FActorSpawnParameters SpawnParams;
+	//SpawnParams.Owner = this;
+	//SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	//World->SpawnActor<AActor>(GeneratedBP->GeneratedClass, GetActorLocation(), GetActorRotation(), SpawnParams);
+}
+
 /*
 void ULaserGun::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
@@ -233,6 +272,7 @@ void ULaserGun::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 bool ULaserGun::Main()
 {
+	
 	return Fire();
 }
 
