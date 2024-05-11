@@ -98,7 +98,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	
+
+	AAstronaut* GetTarget_Implementation() override;
 
 public:	
 	// Called every frame

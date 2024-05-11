@@ -50,6 +50,8 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "AI")
 	bool SetTarget(AAstronaut* newTarget);
 
+	
+
 
 protected:
 	
@@ -60,8 +62,8 @@ protected:
 
 	void SetDamage(float value) { Damage = value; }
 
-
-	AAstronaut* GetTarget() { return target; }
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "AI")
+	AAstronaut* GetTarget();
 
 	/* Rudementary function for dealing damage to target. Does not check for conditions
 	 * returns HP remaining of target

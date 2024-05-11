@@ -75,6 +75,11 @@ void AUEnemy::BeginPlay()
 	SetTarget_Implementation(newTarget);
 }
 
+AAstronaut* AUEnemy::GetTarget_Implementation()
+{
+	return target;
+}
+
 // Called every frame
 void AUEnemy::Tick(float DeltaTime)
 {
@@ -109,7 +114,7 @@ void AUEnemy::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingResu
 
 void AUEnemy::MoveToPlayer()
 {
-	EnemyAIController->MoveToLocation(GetTarget()->GetActorLocation(), StoppingDistance, true);
+	EnemyAIController->MoveToLocation(GetTarget_Implementation()->GetActorLocation(), StoppingDistance, true);
 }
 
 void AUEnemy::SeekPlayer()
@@ -127,7 +132,7 @@ void AUEnemy::StopSeekingPlayer()
 void AUEnemy::OnPlayerDetectedOverLapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (GetTarget())
+	if (GetTarget_Implementation())
 	{
 		PlayerDetected = true;
 		SeekPlayer();
@@ -137,7 +142,7 @@ void AUEnemy::OnPlayerDetectedOverLapBegin(UPrimitiveComponent* OverlappedComp, 
 void AUEnemy::OnPlayerDetectedOverLapEnd(UPrimitiveComponent* OverLappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	if (GetTarget())
+	if (GetTarget_Implementation())
 	{
 		PlayerDetected = false;
 		StopSeekingPlayer();
@@ -148,7 +153,7 @@ void AUEnemy::OnPlayerDetectedOverLapEnd(UPrimitiveComponent* OverLappedComp, AA
 void AUEnemy::OnPlayerAttackOverlapBegin(UPrimitiveComponent* OverLappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (GetTarget())
+	if (GetTarget_Implementation())
 	{
 		CanAttackPlayer = true;
 	}
@@ -158,7 +163,7 @@ void AUEnemy::OnPlayerAttackOverlapBegin(UPrimitiveComponent* OverLappedComp, AA
 void AUEnemy::OnPlayerAttackOverLapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	if (GetTarget())
+	if (GetTarget_Implementation())
 	{
 		CanAttackPlayer = false;
 
@@ -169,7 +174,7 @@ void AUEnemy::OnPlayerAttackOverLapEnd(UPrimitiveComponent* OverlappedComp, AAct
 void AUEnemy::OnDealDamageOverLapBegin(UPrimitiveComponent* OverLappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (GetTarget() && CanDealDamage)
+	if (GetTarget_Implementation() && CanDealDamage)
 	{
 		//Test to see Enemy deal damage to player
 		UE_LOG(LogTemp, Warning, TEXT("Player took Damage"));
@@ -192,8 +197,8 @@ void AUEnemy::DamageThis_Implementation(float DamageTaken)
 
 float AUEnemy::DamageTarget_Implementation(float DamageDealt)
 {
-	GetTarget()->DamageThis(DamageDealt);
-	return GetTarget()->GetOxygen();
+	GetTarget_Implementation()->DamageThis(DamageDealt);
+	return GetTarget_Implementation()->GetOxygen();
 }
 
 

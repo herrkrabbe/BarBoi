@@ -166,20 +166,18 @@ void ADroid::Look(const FInputActionValue& Value)
 
 TScriptInterface<ISwitch> ADroid::GetDroid_Implementation()
 {
-
-
-	ADroid* droid = Cast<ADroid>(Other.GetObject()); //Get object reference
-
-	if (droid == nullptr) { //check object reference
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Astronaut cannot find droid")));
-	}
-
-	return TScriptInterface<ISwitch>(droid);
+	return TScriptInterface<ISwitch>(this);
 }
 
 TScriptInterface<ISwitch> ADroid::GetAstronaut_Implementation()
 {
-	return TScriptInterface<ISwitch>(this); // convert this to variable holding 
+	AAstronaut* astronaut = Cast<AAstronaut>(Other.GetObject()); //Get object reference
+
+	if (astronaut == nullptr) { //check object reference
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Astronaut cannot find droid")));
+	}
+
+	return TScriptInterface<ISwitch>(astronaut);
 }
 
 TScriptInterface<ISwitch> ADroid::GetOther_Implementation()

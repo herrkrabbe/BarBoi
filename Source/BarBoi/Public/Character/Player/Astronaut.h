@@ -124,6 +124,7 @@ public:
 	float AddOxygen(float amount);
 
 	/* Damage done to this character */
+	UFUNCTION(BlueprintCallable, Category = "Oxygen")
 	bool DamageThis(float damageDone);
 
 	/* Get ammunition of gun */
