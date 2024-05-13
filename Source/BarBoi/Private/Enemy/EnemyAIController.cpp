@@ -20,6 +20,7 @@ void AEnemyAIController::BeginPlay()
 
 void AEnemyAIController::Patrol()
 {
+	if (GetWorld()->IsPaused()) return;
 	if (NavArea && IsValid(GetPawn()))
 	{
 		// k2 takes the world as the first parameter.
