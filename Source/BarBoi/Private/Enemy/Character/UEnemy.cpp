@@ -36,8 +36,10 @@ void AUEnemy::BeginPlay()
 	Super::BeginPlay();
 
 	EnemyAIController = Cast<AEnemyAIController>(GetController());
-	EnemyAIController->GetPathFollowingComponent()->OnRequestFinished.AddUObject
-	(this, &AUEnemy::OnAIMoveCompleted);
+	if (EnemyAIController != nullptr) {
+		EnemyAIController->GetPathFollowingComponent()->OnRequestFinished.AddUObject
+		(this, &AUEnemy::OnAIMoveCompleted);
+	}
 
 	PlayerCollisionDetection->OnComponentBeginOverlap.AddDynamic(this,
 		&AUEnemy::OnPlayerDetectedOverLapBegin);
