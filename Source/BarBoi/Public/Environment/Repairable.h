@@ -7,19 +7,6 @@
 #include "RepairPhase.h"
 #include "Repairable.generated.h"
 
-/* Enumerator to tell classes using Repairable interface the state of the object they are repairing
-Unrepaired - repair has not started
-Repairing - repair has started but is not completed
-Repair_completed - repair finished this call of repair
-Repaired - repair was already complete*/
-//enum RepairPhase {
-//	UNREPAIRED = 0,
-//	REPAIRING = 1,
-//	REPAIR_COMPLETED = 2,
-//	REPAIRED = 3
-//};
-
-
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class URepairable : public UInterface
@@ -28,7 +15,7 @@ class URepairable : public UInterface
 };
 
 /**
- * Interface to ahndle repair of objects.
+ * Interface to handle repair of objects.
  */
 class BARBOI_API IRepairable
 {
