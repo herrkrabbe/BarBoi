@@ -20,6 +20,12 @@ public:
 	bool PlayerDetected;
 	bool CanAttackPlayer;
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category=Damage)
+		float Damage = 5;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category=Damage)
+		float AttackRate = 2;
+	
 	//Added bool Variable. To access "CanDealDamage" in Blueprint
 	UPROPERTY(BlueprintReadWrite)
 		bool CanDealDamage;
