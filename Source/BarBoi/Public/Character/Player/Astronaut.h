@@ -75,6 +75,9 @@ public:
 	AAstronaut();
 
 protected:
+	UFUNCTION(BlueprintImplementableEvent, Category=Oxygen)
+	void OnDeath();
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 

@@ -234,7 +234,7 @@ bool AAstronaut::DamageThis(float damageDone)
 		}
 
 		//attemt quit game
-		UKismetSystemLibrary::QuitGame(GetWorld(), PlayerController, EQuitPreference::Quit, false);
+		OnDeath();
 
 
 		return false;
