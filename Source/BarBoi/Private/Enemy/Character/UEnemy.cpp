@@ -111,7 +111,7 @@ void AUEnemy::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingResu
 		//If conditions are met for the attack it will stop seeking
 		StopSeekingPlayer();
 
-		// Checks if player is attacked (Not Implemented yet)
+		// Checks if player is attacked(Supposed to add for animation when we get it)
 		UE_LOG(LogTemp, Warning, TEXT("Player got ATTACKED"));
 	}
 }
@@ -210,7 +210,6 @@ void AUEnemy::DamageThis_Implementation(float DamageTaken)
 	{
 		GetWorld()->DestroyActor(this);
 	}
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, FString::FromInt(Health));
 }
 
 //Damages target to remove oxygen
