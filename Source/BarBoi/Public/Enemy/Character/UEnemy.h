@@ -20,6 +20,12 @@ public:
 	bool PlayerDetected;
 	bool CanAttackPlayer;
 
+	UPROPERTY(BlueprintReadWrite, Category=Health)
+	int Health;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category=Health)
+	int HealthMax = 3;
+	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category=Damage)
 		float Damage = 5;
 

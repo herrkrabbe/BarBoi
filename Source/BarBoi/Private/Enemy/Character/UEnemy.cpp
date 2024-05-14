@@ -35,6 +35,8 @@ void AUEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
+	Health = HealthMax;
+	
 	EnemyAIController = Cast<AEnemyAIController>(GetController());
 	if (EnemyAIController != nullptr) {
 		EnemyAIController->GetPathFollowingComponent()->OnRequestFinished.AddUObject
@@ -114,11 +116,12 @@ void AUEnemy::OnAIMoveCompleted(FAIRequestID RequestID, const FPathFollowingResu
 	}
 }
 
+// moves Enemy to player
 void AUEnemy::MoveToPlayer()
 {
 	EnemyAIController->MoveToLocation(GetTarget_Implementation()->GetActorLocation(), StoppingDistance, true);
 }
-
+// seeks Astronaut
 void AUEnemy::SeekPlayer()
 {
 	MoveToPlayer();
@@ -126,32 +129,37 @@ void AUEnemy::SeekPlayer()
 	                                       &AUEnemy::SeekPlayer, 0.25f, true);
 }
 
+//stops seeking Astronaut
 void AUEnemy::StopSeekingPlayer()
 {
 	GetWorld()->GetTimerManager().ClearTimer(SeekPlayerTimerHandle);
 }
 
+//Detects if astronaut is in sphere
 void AUEnemy::OnPlayerDetectedOverLapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (GetTarget_Implementation() == OtherActor)
 	{
+		//tests and if true it start going to Astronaut
 		PlayerDetected = true;
 		SeekPlayer();
 	}
 }
-
+//Detects if Astronaut moves out of sphere
 void AUEnemy::OnPlayerDetectedOverLapEnd(UPrimitiveComponent* OverLappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	if (GetTarget_Implementation()== OtherActor)
 	{
+		//if this is true it stop seeking and starts patroling
 		PlayerDetected = false;
 		StopSeekingPlayer();
 		EnemyAIController->Patrol();
 	}
 }
 
+//Detects when player is in sphere to start the attack
 void AUEnemy::OnPlayerAttackOverlapBegin(UPrimitiveComponent* OverLappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -161,18 +169,19 @@ void AUEnemy::OnPlayerAttackOverlapBegin(UPrimitiveComponent* OverLappedComp, AA
 	}
 }
 
-
+//Detects if players has moved out of sphere
 void AUEnemy::OnPlayerAttackOverLapEnd(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	if (GetTarget_Implementation())
 	{
+		//if player is not inside stops attack and start following Astronaut
 		CanAttackPlayer = false;
 
 		SeekPlayer();
 	}
 }
-
+//Starts attacking with damage collision box
 void AUEnemy::OnDealDamageOverLapBegin(UPrimitiveComponent* OverLappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
@@ -192,11 +201,19 @@ bool AUEnemy::SetTarget_Implementation(AAstronaut* newTarget)
 	return true;
 }
 
+
 void AUEnemy::DamageThis_Implementation(float DamageTaken)
 {
-	GetWorld()->DestroyActor(this);
+	Health -= DamageTaken;
+	
+	if (Health <= 0)
+	{
+		GetWorld()->DestroyActor(this);
+	}
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, FString::FromInt(Health));
 }
 
+//Damages target to remove oxygen
 float AUEnemy::DamageTarget_Implementation(float DamageDealt)
 {
 	GetTarget_Implementation()->DamageThis(DamageDealt);
