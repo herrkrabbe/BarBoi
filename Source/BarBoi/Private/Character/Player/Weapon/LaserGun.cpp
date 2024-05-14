@@ -81,11 +81,13 @@ bool ULaserGun::Fire()
 
 bool ULaserGun::Repair()
 {
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, TEXT("Repair started"));
 	// weapon cannot repair while overheated or has recently fired or has no secondary actions remaining
-	if(FireCooldown != 0 || bIsOverheated || SecondaryRemaining<1) return false;
+	if(FireCooldown != 0 || bIsOverheated || SecondaryRemaining < 1) return false;
+	//if (FireCooldown != 0 || bIsOverheated) return false;
 
 	// get player controller for player camera rotation
-	APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
+	APlayerController* PlayerController = Cast<APlayerController>(GetWorld()->GetFirstPlayerController());
 	if (PlayerController == nullptr) {
 		return false;
 	}
