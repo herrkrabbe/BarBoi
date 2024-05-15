@@ -39,8 +39,7 @@ void ASalvage::BeginPlay()
 PickupType ASalvage::Pickup()
 {
 	if (!Destroy()) {
-		//giving error message if the scrap object failed to delete
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("FAILED DELETE"));
+		
 	}
 	return type;
 }

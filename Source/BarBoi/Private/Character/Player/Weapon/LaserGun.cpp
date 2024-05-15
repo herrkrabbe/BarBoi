@@ -17,7 +17,6 @@ ULaserGun::ULaserGun()
 	
 	if (ProjectileFile.Class != nullptr) {
 		ProjectileClass = ProjectileFile.Class;
-		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, TEXT("Projectile Set"));
 	}
 		
 }
@@ -30,14 +29,6 @@ void ULaserGun::TickWeapon(float deltaTime)
 
 bool ULaserGun::Fire()
 {
-
-	/*
-	// This block is taken from FPS template
-	if (Character == nullptr || Character->GetController() == nullptr)
-	{
-		return false;
-	}
-	*/
 
 	// weapon cannot fire while overheated or has recently fired
 	if (FireCooldown != 0 || bIsOverheated) {
@@ -69,7 +60,6 @@ bool ULaserGun::Fire()
 
 			// Spawn the projectile at the muzzle
 			World->SpawnActor<ALaser>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Firing"));
 			// Setting cooldown and adding heat
 			FireCooldown = FireRate;
 			AddHeat(HeatPerShot);
@@ -81,7 +71,6 @@ bool ULaserGun::Fire()
 
 bool ULaserGun::Repair()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::White, TEXT("Repair started"));
 	// weapon cannot repair while overheated or has recently fired or has no secondary actions remaining
 	if(FireCooldown != 0 || bIsOverheated || SecondaryRemaining < 1) return false;
 	//if (FireCooldown != 0 || bIsOverheated) return false;
@@ -228,49 +217,10 @@ void ULaserGun::ApplyHeatLimits()
 void ULaserGun::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//UObject* SpawnActor = Cast<UObject>(StaticLoadObject(UObject::StaticClass(), NULL, TEXT(" / Game / Group_11 / Blueprints / BP_Laser.BP_Laser")));
-	//
-	//UBlueprint* GeneratedBP = Cast<UBlueprint>(SpawnActor);
-	//if (!SpawnActor)
-	//{
-	//	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("CANT FIND OBJECT TO SPAWN")));
-	//	return;
-	//}
-	//
-	//UClass* SpawnClass = SpawnActor->StaticClass();
-	//if (SpawnClass == NULL)
-	//{
-	//	GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("CLASS == NULL")));
-	//	return;
-	//}
-	//
-	//ProjectileClass->
-	//
-	//UWorld* World = GetWorld();
-	//FActorSpawnParameters SpawnParams;
-	//SpawnParams.Owner = this;
-	//SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	//World->SpawnActor<AActor>(GeneratedBP->GeneratedClass, GetActorLocation(), GetActorRotation(), SpawnParams);
+	
 }
 
-/*
-void ULaserGun::EndPlay(const EEndPlayReason::Type EndPlayReason)
-{
-	if (Character == nullptr)
-	{
-		return;
-	}
 
-	if (APlayerController* PlayerController = Cast<APlayerController>(Character->GetController()))
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->RemoveMappingContext(WeaponMappingContext);
-		}
-	}
-}
-*/
 
 bool ULaserGun::Main()
 {

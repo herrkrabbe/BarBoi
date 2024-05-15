@@ -174,7 +174,7 @@ TScriptInterface<ISwitch> ADroid::GetAstronaut_Implementation()
 	AAstronaut* astronaut = Cast<AAstronaut>(Other.GetObject()); //Get object reference
 
 	if (astronaut == nullptr) { //check object reference
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Astronaut cannot find droid")));
+		
 	}
 
 	return TScriptInterface<ISwitch>(astronaut);

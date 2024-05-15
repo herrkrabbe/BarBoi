@@ -81,7 +81,6 @@ void AAstronaut::BeginPlay()
 	else if (GetOxygen() < 0) //less than 0
 	{
 		HP = 1;
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Oxygen is less than 0"));
 	}
 
 	
@@ -272,7 +271,6 @@ TScriptInterface<ISwitch> AAstronaut::GetDroid_Implementation()
 	ADroid* droid = Cast<ADroid>(Other.GetObject()); //Get object reference
 
 	if (droid == nullptr) { //check object reference
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Astronaut cannot find droid")));
 	}
 
 	return TScriptInterface<ISwitch>(droid);
