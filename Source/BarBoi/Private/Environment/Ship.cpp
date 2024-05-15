@@ -17,7 +17,7 @@ RepairPhase AShip::Repair(float deltaTime)
 		WinGame();
 		break;
 	case REPAIR_COMPLETED:
-		if(RepairsDone >= RepairsNeeded) {
+		if(RepairsDone >= RepairsNeeded - 1) {
 			RepairState = REPAIRED;
 			break;
 		}
