@@ -11,7 +11,7 @@ ASalvage::ASalvage()
 	PrimaryActorTick.bCanEverTick = false;
 
 
-	type = PickupType::SALVAGE;
+	type = EPickupType::SALVAGE;
 
 	//setting root component
 	OverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("OverlapBox"));
@@ -36,7 +36,7 @@ void ASalvage::BeginPlay()
 	Super::BeginPlay();
 }
 
-PickupType ASalvage::Pickup()
+EPickupType ASalvage::Pickup()
 {
 	if (!Destroy()) {
 		

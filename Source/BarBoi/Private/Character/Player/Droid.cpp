@@ -55,11 +55,9 @@ void ADroid::BeginPlay()
 	Super::BeginPlay();
 
 	//enable flying
-	//GetCharacterMovement()->GravityScale = 0.f;
 	GetCharacterMovement()->SetMovementMode(MOVE_Flying); //Enable the doird to fly
 	GetCharacterMovement()->AirControl = 1.f;
 	
-	//if (APlayerController* PlayerController = Cast<APlayerController>(Controller)) {
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetWorld()->GetFirstPlayerController())) {
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer())) {
 			Subsystem->AddMappingContext(DroidMappingContext, 1);
@@ -126,24 +124,15 @@ void ADroid::Move(const FInputActionValue& Value)
 
 
 
-		//const FRotator PitchRotation(Rotation.Pitch, 0, Rotation.Pitch);
-		//const FVector UpDirection = FRotationMatrix(PitchRotation).GetUnitAxis(EAxis::Z);
 		const FVector UpDirection = FVector(0, 0, 1);
 
 		FString UpString = "Up: ";
 		UpString.Append(UpDirection.ToString());
 
-
+		//apply movement
 		AddMovementInput(UpDirection, MovementVector.Z);
 		AddMovementInput(ForwardDirection, MovementVector.Y);
 		AddMovementInput(RightDirection, MovementVector.X);
-		
-		
-
-		// add movement 
-		//AddMovementInput(GetActorForwardVector(), MovementVector.Y);
-		//AddMovementInput(GetActorRightVector(), MovementVector.X);
-		//AddMovementInput(GetActorUpVector(), MovementVector.Z);
 	}
 
 }

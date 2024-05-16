@@ -21,13 +21,13 @@ class BARBOI_API IRepairable
 {
 	GENERATED_BODY()
 protected:
-	RepairPhase RepairState = UNREPAIRED;
+	ERepairPhase RepairState = UNREPAIRED;
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	/* Function to instantly repair object*/
-	virtual RepairPhase Repair() = 0;
+	virtual ERepairPhase Repair() = 0;
 
 	/* Function that adds deltaTime to repair progress*/
-	virtual RepairPhase Repair(float deltaTime) = 0;
+	virtual ERepairPhase Repair(float deltaTime) = 0;
 };
