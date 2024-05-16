@@ -19,7 +19,6 @@ ALaser::ALaser()
 
 	//Adding hit event
 	CollisionComp->SetCollisionProfileName("Laser");
-	//CollisionComp->OnComponentHit.AddDynamic(this, &ALaser::OnHit);
 	
 
 

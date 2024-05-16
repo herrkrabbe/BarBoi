@@ -58,14 +58,14 @@ void ADroid::BeginPlay()
 	GetCharacterMovement()->SetMovementMode(MOVE_Flying); //Enable the doird to fly
 	GetCharacterMovement()->AirControl = 1.f;
 	
-	if (APlayerController* PlayerController = Cast<APlayerController>(GetWorld()->GetFirstPlayerController())) {
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer())) {
-			Subsystem->AddMappingContext(DroidMappingContext, 1);
-		}
-	}
-	else {
-	}
-	
+
+	APlayerController* PlayerController = Cast<APlayerController>(GetWorld()->GetFirstPlayerController());
+	if (PlayerController == nullptr) return; // Test for controller
+
+	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer());
+	if (Subsystem == nullptr) return; // Test for subsystem
+
+	Subsystem->AddMappingContext(DroidMappingContext, 1);
 }
 
 // Called every frame
@@ -80,60 +80,51 @@ void ADroid::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 
 	// Set up action bindings
-	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
-	{
-		EnhancedInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, this, &ADroid::Move);
+	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+	if (EnhancedInputComponent == nullptr) return;
+	
+	EnhancedInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, this, &ADroid::Move);
 
-		// Looking
-		EnhancedInputComponent->BindAction(ActionLook, ETriggerEvent::Triggered, this, &ADroid::Look);
-
-		
-	}
-	else
-	{
-		//insert error here
-	}
-
+	// Looking
+	EnhancedInputComponent->BindAction(ActionLook, ETriggerEvent::Triggered, this, &ADroid::Look);
 }
 
 void ADroid::Move(const FInputActionValue& Value)
 {
+	if (Controller == nullptr) return; // Test for controller
+
 	FVector MovementVector = Value.Get<FVector>();
+	
+	GetCharacterMovement()->SetMovementMode(MOVE_Flying);
 
+	// find out which way is forward
+	const FRotator Rotation = Controller->GetControlRotation();
+	const FRotator YawRotation(0, Rotation.Yaw, 0);
+	
 
-	if (Controller != nullptr)
-	{
-		GetCharacterMovement()->SetMovementMode(MOVE_Flying);
+	// get forward vector
+	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	
+	FString ForwardString = "Forward: ";
+	ForwardString.Append(ForwardDirection.ToString());
 
-		// find out which way is forward
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-		
+	// get right vector 
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-		// get forward vector
-		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-		
-		FString ForwardString = "Forward: ";
-		ForwardString.Append(ForwardDirection.ToString());
-
-		// get right vector 
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
-		FString RightString = "Right: ";
-		RightString.Append(RightDirection.ToString());
+	FString RightString = "Right: ";
+	RightString.Append(RightDirection.ToString());
 
 
 
-		const FVector UpDirection = FVector(0, 0, 1);
+	const FVector UpDirection = FVector(0, 0, 1);
 
-		FString UpString = "Up: ";
-		UpString.Append(UpDirection.ToString());
+	FString UpString = "Up: ";
+	UpString.Append(UpDirection.ToString());
 
-		//apply movement
-		AddMovementInput(UpDirection, MovementVector.Z);
-		AddMovementInput(ForwardDirection, MovementVector.Y);
-		AddMovementInput(RightDirection, MovementVector.X);
-	}
+	//apply movement
+	AddMovementInput(UpDirection, MovementVector.Z);
+	AddMovementInput(ForwardDirection, MovementVector.Y);
+	AddMovementInput(RightDirection, MovementVector.X);
 
 }
 
@@ -163,7 +154,7 @@ TScriptInterface<ISwitch> ADroid::GetAstronaut_Implementation()
 	AAstronaut* astronaut = Cast<AAstronaut>(Other.GetObject()); //Get object reference
 
 	if (astronaut == nullptr) { //check object reference
-		
+		return TScriptInterface<ISwitch>(nullptr);
 	}
 
 	return TScriptInterface<ISwitch>(astronaut);
@@ -176,19 +167,19 @@ TScriptInterface<ISwitch> ADroid::GetOther_Implementation()
 
 bool ADroid::SetAstronaut_Implementation(const TScriptInterface<ISwitch>& astronaut)
 {
+	bool bAstronautIsSet = false; // for micro optimisation
 
-	if (Other.GetObject() != nullptr) {
-		return false;
-	}
+	if (Other.GetObject() != nullptr) return bAstronautIsSet;
 
-	if (AAstronaut* thisOne = Cast<AAstronaut>(this)) return false;
+	if (AAstronaut* thisOne = Cast<AAstronaut>(this)) return bAstronautIsSet;
 
 	if (astronaut.GetObject()->Implements<USwitch>())
 	{
 		Other = TScriptInterface<ISwitch>(astronaut.GetObject());
-		return true;
+		bAstronautIsSet = true;
 	}
-	return false;
+
+	return bAstronautIsSet;
 }
 
 bool ADroid::SetDroid_Implementation(const TScriptInterface<ISwitch>& droid)

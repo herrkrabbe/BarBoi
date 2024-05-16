@@ -39,7 +39,6 @@ AAstronaut::AAstronaut()
 	WeaponMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WeaponMesh"));
 	ULaserGun* weapon = CreateDefaultSubobject<ULaserGun>(TEXT("AstronautWeapon"));
 	AstronautWeapon = TScriptInterface<IWeapon>(weapon);
-	//AstronautWeapon = CreateDefaultSubobject<ULaserGun>(TEXT("AstronautWeapon"));
 	
 	WeaponMesh->SetupAttachment(GetMesh());
 	weapon->SetupAttachment(WeaponMesh);
@@ -179,8 +178,6 @@ void AAstronaut::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent
 		EnhancedInputComponent->BindAction(ActionLook, ETriggerEvent::Triggered, this, &AAstronaut::Look);
 		EnhancedInputComponent->BindAction(ActionMain, ETriggerEvent::Triggered, this, &AAstronaut::Main);
 		EnhancedInputComponent->BindAction(ActionSecondary, ETriggerEvent::Triggered, this, &AAstronaut::Secondary);
-
-		//AstronautWeapon->SetupInput(this);
 	}
 	else
 	{
@@ -271,6 +268,7 @@ TScriptInterface<ISwitch> AAstronaut::GetDroid_Implementation()
 	ADroid* droid = Cast<ADroid>(Other.GetObject()); //Get object reference
 
 	if (droid == nullptr) { //check object reference
+		return TScriptInterface<ISwitch>(nullptr);
 	}
 
 	return TScriptInterface<ISwitch>(droid);

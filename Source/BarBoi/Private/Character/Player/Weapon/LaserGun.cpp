@@ -142,30 +142,6 @@ float ULaserGun::Cooling(float deltaTime)
 	return heatRemoved;
 }
 
-/*
-bool ULaserGun::SetupInput(AAstronaut* character)
-{
-	if (APlayerController* PlayerController = Cast<APlayerController>(character->GetController()))
-	{
-		Character = character;
-
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			// Set the priority of the mapping to 1, so that it overrides the Jump action with the Fire action when using touch input
-			Subsystem->AddMappingContext(WeaponMappingContext, 3);
-		}
-
-		if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent))
-		{
-			// Fire
-			EnhancedInputComponent->BindAction(ActionFire, ETriggerEvent::Triggered, this, &ULaserGun::Fire);
-			EnhancedInputComponent->BindAction(ActionRepair, ETriggerEvent::Triggered, this, &ULaserGun::Repair);
-		}
-	}
-	return false;
-}
-*/
-
 void ULaserGun::FireCooldownTick(float deltaTime)
 {
 	if (FireCooldown == 0) return;

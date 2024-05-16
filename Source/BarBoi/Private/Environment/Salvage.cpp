@@ -39,7 +39,7 @@ void ASalvage::BeginPlay()
 EPickupType ASalvage::Pickup()
 {
 	if (!Destroy()) {
-		
+		UE_LOG(LogTemp, Error, TEXT("Failed to destroy salvage"));
 	}
 	return type;
 }

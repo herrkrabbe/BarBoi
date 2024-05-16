@@ -13,24 +13,27 @@ ERepairPhase AShip::Repair()
 ERepairPhase AShip::Repair(float deltaTime)
 {
 	switch (RepairState) {
-	case REPAIRED:
+	case REPAIRED: //final repair
 		WinGame();
 		break;
-	case REPAIR_COMPLETED:
-		if(RepairsDone >= RepairsNeeded - 1) {
+	case REPAIR_COMPLETED: //a repair is complete
+		if(RepairsDone >= RepairsNeeded - 1) { //this was the last repair
 			RepairState = REPAIRED;
 			break;
 		}
+
 		RepairState = REPAIRING;
+
 		//intentional fallthrough
 		[[fallthrough]];
 	default:
-		ProgressRemaining -= deltaTime;
+		ProgressRemaining -= deltaTime; //progress repair
+
 		if (ProgressRemaining <= 0) {
 			RepairState = REPAIR_COMPLETED;
 			RepairsDone += 1;
 		}
-		else {
+		else { //start repair of ship
 			RepairState = REPAIRING;
 		}
 	}

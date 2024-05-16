@@ -35,10 +35,11 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Get")
 	TScriptInterface<ISwitch> GetOther();
 	
-	// 
+	// returns Astronaut of this Switch pair. may contain nullptr if astronaut is not set
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Get")
 	TScriptInterface<ISwitch> GetAstronaut();
 	
+	// returns Droid of this Switch pair. may contain nullptr if droid is not set
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Get")
 	TScriptInterface<ISwitch> GetDroid();
 
