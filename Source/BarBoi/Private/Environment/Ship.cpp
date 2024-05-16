@@ -3,14 +3,14 @@
 
 #include "Environment/Ship.h"
 
-RepairPhase AShip::Repair()
+ERepairPhase AShip::Repair()
 {
 	ProgressRemaining = 0;
 
 	return Repair(0);;
 }
 
-RepairPhase AShip::Repair(float deltaTime)
+ERepairPhase AShip::Repair(float deltaTime)
 {
 	switch (RepairState) {
 	case REPAIRED:

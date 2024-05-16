@@ -30,9 +30,9 @@ protected:
 
 public:
 	// Inherited via IRepairable
-	RepairPhase Repair() override;
+	ERepairPhase Repair() override;
 
-	RepairPhase Repair(float deltaTime) override;
+	ERepairPhase Repair(float deltaTime) override;
 
 	AShip();
 

@@ -319,7 +319,7 @@ void AAstronaut::PickupItem(UPrimitiveComponent* OverlappedComp, AActor* OtherAc
 	}
 
 	//checking pickup type
-	PickupType type = pickup->Pickup();
+	EPickupType type = pickup->Pickup();
 
 	switch(type) {
 	case SALVAGE: // Overlapped actor is Scrap metal

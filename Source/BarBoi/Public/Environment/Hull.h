@@ -30,9 +30,9 @@ protected:
 public:	
 
 	/* Function to instantly repair object*/
-	virtual RepairPhase Repair() override;
+	virtual ERepairPhase Repair() override;
 
 	/* Function that adds deltaTime to repair progress*/
-	virtual RepairPhase Repair(float deltaTime) override;
+	virtual ERepairPhase Repair(float deltaTime) override;
 
 };

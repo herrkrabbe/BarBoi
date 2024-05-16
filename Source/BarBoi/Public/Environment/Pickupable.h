@@ -6,7 +6,7 @@
 #include "UObject/Interface.h"
 #include "Pickupable.generated.h"
 
-enum PickupType {
+enum EPickupType {
 	NONE = 0,
 	SALVAGE = 1,
 	OXYGEN = 2,
@@ -29,13 +29,13 @@ class BARBOI_API IPickupable
 
 protected:
 	/* Type of pickup. Is set by children */
-	PickupType type = NONE;
+	EPickupType type = NONE;
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
 	/* Function handles operations before picking up item.
-	returns the PickupType of the class*/
-	virtual PickupType Pickup() = 0;
+	returns the EPickupType of the class*/
+	virtual EPickupType Pickup() = 0;
 
 	
 };

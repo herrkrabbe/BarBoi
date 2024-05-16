@@ -1,6 +1,6 @@
 #include <Environment/RepairPhase.h>
 
-FString RepairPhaseToString(RepairPhase phase) {
+FString RepairPhaseToString(ERepairPhase phase) {
 	FString str = FString();
 	switch (phase) {
 	case UNREPAIRED:

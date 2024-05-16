@@ -24,13 +24,13 @@ void AHull::BeginPlay()
 	RepairState = UNREPAIRED;
 }
 
-RepairPhase AHull::Repair()
+ERepairPhase AHull::Repair()
 {
 	progressRemaining = 0;
 	return Repair(0);
 }
 
-RepairPhase AHull::Repair(float deltaTime)
+ERepairPhase AHull::Repair(float deltaTime)
 {
 	switch (RepairState) {
 	case REPAIRED: //already repaired

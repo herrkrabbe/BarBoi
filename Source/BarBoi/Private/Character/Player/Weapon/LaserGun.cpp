@@ -102,7 +102,7 @@ bool ULaserGun::Repair()
 		if (repairable == nullptr) return false;
 
 		// execute repair
-		RepairPhase phase = repairable->Repair();
+		ERepairPhase phase = repairable->Repair();
 
 		bool bConsumesSecondary = false;
 

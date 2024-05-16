@@ -37,7 +37,7 @@ protected:
 public:	
 
 	/* Function handles operations before picking up item.
-	returns the PickupType of the class*/
-	virtual PickupType Pickup() override;
+	returns the EPickupType of the class*/
+	virtual EPickupType Pickup() override;
 
 };
